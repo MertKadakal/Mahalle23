@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_anasayfa"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Anasayfa" />
+
+    <item
+        android:id="@+id/navigation_nereye_gitsem"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="Nereye Gitsem" />
+
+    <item
+        android:id="@+id/navigation_nasil_gidilir"
+        android:icon="@drawable/path"
+        android:title="Nasıl Gidilir" />
+
+    <item
+        android:id="@+id/navigation_haberler"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Haberler" />
+
+</menu>
