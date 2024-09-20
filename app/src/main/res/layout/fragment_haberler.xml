@@ -7,10 +7,20 @@
     tools:context=".HaberlerFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/yukleniyor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="haberler"
-        android:textSize="30dp"/>
+        android:text="Yükleniyor..."
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <ListView
+        android:id="@+id/haberler_listesi"
+        android:layout_width="370dp"
+        android:layout_height="676dp"
+        android:layout_gravity="center_horizontal"
+        android:translationY="20dp" />
+
+
 </FrameLayout>

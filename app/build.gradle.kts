@@ -46,4 +46,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(files("C:\\Users\\HP\\OneDrive\\Masaüstü\\jsoup-1.18.1.jar"))
 }

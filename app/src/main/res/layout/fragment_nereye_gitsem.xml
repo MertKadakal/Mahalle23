@@ -7,10 +7,9 @@
     tools:context=".NereyeGitsemFragment">
 
     <ListView
-        android:id="@+id/yapılabilecekler_listesi"
+        android:id="@+id/yapilabilecekler_listesi"
         android:layout_width="match_parent"
         android:layout_height="676dp"
-        android:divider="@null"
         android:translationY="20dp" />
 
 </FrameLayout>

@@ -2,7 +2,9 @@ package mert.kadakal.myapplication;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,7 +54,6 @@ public class NasilGidilirFragment extends Fragment {
     HashMap<String, ArrayList<Integer>> node_konumlari = new HashMap<>();
     HashMap<String, ArrayList<Integer>> node_konumlari_shortestpath = new HashMap<>();
     private Button sifirla;
-
     private CustomImageView customImageView;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -65,6 +67,10 @@ public class NasilGidilirFragment extends Fragment {
 
         customImageView = view.findViewById(R.id.imageViewDraw);
         customImageView.setVisibility(view.INVISIBLE);
+
+        // ImageView'a bir OnDraw metodu ekle
+        imageView.setWillNotDraw(false);
+        imageView.postInvalidate();
 
         sifirla = view.findViewById(R.id.sifirla);
         sifirla.setVisibility(view.INVISIBLE);
@@ -90,7 +96,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("1", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(211, 1130));
+        konumlar = new ArrayList<>(Arrays.asList(211, 1160));
         node_konumlari_shortestpath.put("1", konumlar);
         //2
         tem.add("1");
@@ -101,7 +107,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("2", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(260, 1126));
+        konumlar = new ArrayList<>(Arrays.asList(260, 1156));
         node_konumlari_shortestpath.put("2", konumlar);
         //3
         tem.add("2");
@@ -112,7 +118,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("3", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(278, 1146));
+        konumlar = new ArrayList<>(Arrays.asList(278, 1176));
         node_konumlari_shortestpath.put("3", konumlar);
         //4
         tem.add("3");
@@ -125,7 +131,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("4", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(278, 1188));
+        konumlar = new ArrayList<>(Arrays.asList(278, 1218));
         node_konumlari_shortestpath.put("4", konumlar);
         //5
         tem.add("4");
@@ -136,7 +142,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("5", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(329, 1181));
+        konumlar = new ArrayList<>(Arrays.asList(329, 1211));
         node_konumlari_shortestpath.put("5", konumlar);
         //6
         tem.add("1");
@@ -149,7 +155,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("6", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(211, 1220));
+        konumlar = new ArrayList<>(Arrays.asList(211, 1250));
         node_konumlari_shortestpath.put("6", konumlar);
         //7
         tem.add("4");
@@ -162,7 +168,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("7", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(286, 1220));
+        konumlar = new ArrayList<>(Arrays.asList(286, 1250));
         node_konumlari_shortestpath.put("7", konumlar);
         //8
         tem.add("6");
@@ -173,7 +179,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("8", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(211, 1270));
+        konumlar = new ArrayList<>(Arrays.asList(211, 1300));
         node_konumlari_shortestpath.put("8", konumlar);
         //9
         tem.add("7");
@@ -186,7 +192,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("9", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(287, 1270));
+        konumlar = new ArrayList<>(Arrays.asList(287, 1300));
         node_konumlari_shortestpath.put("9", konumlar);
         //10
         tem.add("5");
@@ -197,7 +203,7 @@ public class NasilGidilirFragment extends Fragment {
         komsular_mesafe.put("10", new HashMap<>(mesafeMap));
         tem.clear();
         mesafeMap.clear();
-        konumlar = new ArrayList<>(Arrays.asList(329, 1270));
+        konumlar = new ArrayList<>(Arrays.asList(329, 1300));
         node_konumlari_shortestpath.put("10", konumlar);
 
         imageView.post(() -> fitImageToScreen());
@@ -271,9 +277,7 @@ public class NasilGidilirFragment extends Fragment {
                         if (!(secilen_node.equals("none"))) {
                             basildi_mi = true;
                             baslangıc = secilen_node;
-                            Log.d("node", "ilk node seçildi: " + baslangıc);
-                        } else {
-                            Log.d("node", "lütfen node seçiniz");
+                            Toast.makeText(getContext(), "Başlangıç noktası seçildi", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         String secilen_node = secilen_node_belirle(imagePoint.x, imagePoint.y);
@@ -281,7 +285,7 @@ public class NasilGidilirFragment extends Fragment {
                             basildi_mi = false;
 
                             hedef = secilen_node;
-                            Log.d("node", "hedef node seçildi: " + secilen_node);
+                            Toast.makeText(getContext(), "Hedef nokta seçildi", Toast.LENGTH_SHORT).show();
 
                             // Başlangıç yolu
                             ArrayList<String> path = new ArrayList<>();
@@ -348,34 +352,34 @@ public class NasilGidilirFragment extends Fragment {
     }
 
     private String secilen_node_belirle(float x, float y) {
-        if (Math.sqrt(Math.pow(Math.abs(469 - x), 2) + Math.pow(Math.abs(1572 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(469 - x), 2) + Math.pow(Math.abs(1572 - y), 2)) < 50) {
             return "1";
         }
-        if (Math.sqrt(Math.pow(Math.abs(583 - x), 2) + Math.pow(Math.abs(1566 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(583 - x), 2) + Math.pow(Math.abs(1566 - y), 2)) < 50) {
             return "2";
         }
-        if (Math.sqrt(Math.pow(Math.abs(611 - x), 2) + Math.pow(Math.abs(1596 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(611 - x), 2) + Math.pow(Math.abs(1596 - y), 2)) < 50) {
             return "3";
         }
-        if (Math.sqrt(Math.pow(Math.abs(611 - x), 2) + Math.pow(Math.abs(1685 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(611 - x), 2) + Math.pow(Math.abs(1685 - y), 2)) < 50) {
             return "4";
         }
-        if (Math.sqrt(Math.pow(Math.abs(724 - x), 2) + Math.pow(Math.abs(1685 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(724 - x), 2) + Math.pow(Math.abs(1685 - y), 2)) < 50) {
             return "5";
         }
-        if (Math.sqrt(Math.pow(Math.abs(469 - x), 2) + Math.pow(Math.abs(1755 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(469 - x), 2) + Math.pow(Math.abs(1755 - y), 2)) < 50) {
             return "6";
         }
-        if (Math.sqrt(Math.pow(Math.abs(613 - x), 2) + Math.pow(Math.abs(1755 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(613 - x), 2) + Math.pow(Math.abs(1755 - y), 2)) < 50) {
             return "7";
         }
-        if (Math.sqrt(Math.pow(Math.abs(469 - x), 2) + Math.pow(Math.abs(1866 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(469 - x), 2) + Math.pow(Math.abs(1866 - y), 2)) < 50) {
             return "8";
         }
-        if (Math.sqrt(Math.pow(Math.abs(613 - x), 2) + Math.pow(Math.abs(1866 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(613 - x), 2) + Math.pow(Math.abs(1866 - y), 2)) < 50) {
             return "9";
         }
-        if (Math.sqrt(Math.pow(Math.abs(724 - x), 2) + Math.pow(Math.abs(1186 - y), 2)) < 10) {
+        if (Math.sqrt(Math.pow(Math.abs(724 - x), 2) + Math.pow(Math.abs(1186 - y), 2)) < 50) {
             return "10";
         }
         return "none";

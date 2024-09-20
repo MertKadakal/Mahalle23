@@ -45,7 +45,6 @@ public class CustomImageView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        this.canvas = canvas;
         for (Line line : lines) {
             canvas.drawLine(line.startX, line.startY, line.endX, line.endY, paint);
         }
