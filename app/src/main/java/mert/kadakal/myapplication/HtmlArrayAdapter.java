@@ -1,6 +1,8 @@
 package mert.kadakal.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +28,7 @@ public class HtmlArrayAdapter extends ArrayAdapter<String> {
             if (liste_ismi.equals("haberler")) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.haberler, parent, false);
                 TextView haber_sayfasi_text = convertView.findViewById(R.id.haber_sayfasi);
-                String htmlText = getItem(position).split("<br>")[1];
+                String htmlText = "<b>"+getItem(position).split("<br>")[1]+"</b><br><br>" + getItem(position).split("<br>")[2];
                 haber_sayfasi_text.setText(Html.fromHtml(htmlText));
                 TextView textView = convertView.findViewById(R.id.button);
                 textView.setText(Html.fromHtml(getItem(position).split("<br>")[0]));
@@ -53,12 +55,14 @@ public class HtmlArrayAdapter extends ArrayAdapter<String> {
         button.setText(Html.fromHtml(htmlText));
 
         // Butona tıklama olayını ekle
-        String finalHtmlText = htmlText;
+        String finalHtmlText = getItem(position);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Butona tıklandı: " + finalHtmlText, Toast.LENGTH_SHORT).show();
-                Log.d("NereyeGitsemFragment", "Tıklanan buton: " + finalHtmlText);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(finalHtmlText.split("<br>")[3]));
+                getContext().startActivity(intent);
+
             }
         });
         return convertView;

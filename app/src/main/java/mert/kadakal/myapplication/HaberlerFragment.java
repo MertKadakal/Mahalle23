@@ -2,13 +2,12 @@ package mert.kadakal.myapplication;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,22 +52,36 @@ public class HaberlerFragment extends Fragment {
         protected ArrayList<String> doInBackground(String... urls) {
 
             ArrayList<String> titles = new ArrayList<>();
+            ArrayList<String> linkler = new ArrayList<>();
             try {
                 // Fetch the web page using Jsoup
                 Document doc = Jsoup.connect(urls[0]).get();
 
                 Elements elements;
-                elements = doc.select(".n0jPhd.ynAwRc.MBeuO.nDgy9d");
-                for (Element element : elements) {
-                    String title = element.text();
-                    titles.add(title);  // Add the text to the list
-                }
-
                 elements = doc.select(".MgUUmf.NUnG9d > span");
                 for (Element element : elements) {
-                    String title = element.text();
-                    titles.add(title);  // Add the text to the list
+                    String baslik = element.text();
+                    titles.add(baslik);
                 }
+
+                elements = doc.select(".n0jPhd.ynAwRc.MBeuO.nDgy9d");
+                for (Element element : elements) {
+                    String sayfa = element.text();
+                    titles.add(sayfa);
+                }
+
+                elements = doc.select(".GI74Re.nDgy9d");
+                for (Element element : elements) {
+                    String aciklama = element.text();
+                    titles.add(aciklama);
+                }
+
+                elements = doc.select(".SoaBEf");
+                for (Element element : elements) {
+                    String link = element.select("a").attr("href");
+                    titles.add(link);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,12 +94,12 @@ public class HaberlerFragment extends Fragment {
             super.onPostExecute(result);
             // Update the ListView with the fetched data
             if (result != null) {
-                for (int i=0; i<result.size()/2; i++) {
-                    items.add(String.format("<b>%s</b><br>%s", result.get(i+result.size()/2), result.get(i)));
+                for (int i=0; i<result.size()/4; i++) {
+                    items.add(String.format("<b>%s</b><br>%s<br>%s<br>%s", result.get(i), result.get(i+(result.size()/4)), result.get(i+2*(result.size()/4)), result.get(i+3*(result.size()/4))));
                 }
+                Log.d("items", String.valueOf(result.size()));
                 HtmlArrayAdapter adapter = new HtmlArrayAdapter(getContext(), R.layout.haberler, items, "haberler");
                 haberler_listesi.setAdapter(adapter);
-
             }
         }
     }
