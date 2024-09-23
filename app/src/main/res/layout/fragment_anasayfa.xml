@@ -6,12 +6,12 @@
     android:background="@color/white"
     tools:context=".AnasayfaFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/hava_durumu"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="anasayfadasınız"
-        android:textSize="30dp"/>
-
+        android:layout_height="130dp"
+        android:layout_gravity="center|top"
+        android:backgroundTint="#BFBFBF"
+        android:text="Hava Durumu"
+        android:textColor="#000000" />
 </FrameLayout>

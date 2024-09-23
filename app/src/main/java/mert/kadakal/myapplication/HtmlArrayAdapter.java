@@ -62,7 +62,6 @@ public class HtmlArrayAdapter extends ArrayAdapter<String> {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(finalHtmlText.split("<br>")[3]));
                 getContext().startActivity(intent);
-
             }
         });
         return convertView;
