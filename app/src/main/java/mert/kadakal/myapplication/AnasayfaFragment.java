@@ -1,27 +1,20 @@
 package mert.kadakal.myapplication;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class AnasayfaFragment extends Fragment {
+
+    private Button muhtarlik;
+    private Button hava_durumu;
 
     @Nullable
     @Override
@@ -33,5 +26,16 @@ public class AnasayfaFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        muhtarlik = view.findViewById(R.id.muhtarlik);
+        hava_durumu = view.findViewById(R.id.hava_durumu);
+
+        muhtarlik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Muhtarlik.class);
+                startActivity(intent);
+            }
+        });
     }
 }
