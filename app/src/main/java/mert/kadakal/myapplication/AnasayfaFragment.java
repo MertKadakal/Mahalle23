@@ -37,5 +37,13 @@ public class AnasayfaFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        hava_durumu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), HavaDurumu.class);
+                startActivity(intent);
+            }
+        });
     }
 }
