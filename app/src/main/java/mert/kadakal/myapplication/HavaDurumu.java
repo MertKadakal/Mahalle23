@@ -4,9 +4,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,6 +33,8 @@ public class HavaDurumu extends AppCompatActivity {
     TextView sonrakigun5;
     TextView sonrakigun6;
 
+    LottieAnimationView sembol;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,8 @@ public class HavaDurumu extends AppCompatActivity {
         sonrakigun4 = findViewById(R.id.sonrakigun4);
         sonrakigun5 = findViewById(R.id.sonrakigun5);
         sonrakigun6 = findViewById(R.id.sonrakigun6);
+
+        sembol = findViewById(R.id.lottieAnimationView);
 
         // Trigger AsyncTask to fetch news data in the background
         new HavaDurumu.FetchNewsTask().execute("https://havadurumu15gunluk.xyz/havadurumu/293/bursa-hava-durumu-7-gunluk.html");
@@ -99,6 +106,28 @@ public class HavaDurumu extends AppCompatActivity {
             anlik_derece.setText(suanki_derece);
             hissedilen.setText(hissedilen_derece);
 
+            if (doc.selectFirst("span.status").text().contains("bulutlu")) {
+                sembol.setAnimation(R.raw.bulutlu);
+            } else {
+                switch (doc.selectFirst("span.status").text()) {
+                    case "Güneşli":
+                        sembol.setAnimation(R.raw.gunesli);
+                        break;
+                    case "Çoğunlukla güneşli":
+                        sembol.setAnimation(R.raw.parcali_bulutlu);
+                        break;
+                    case "Kısmen güneşli":
+                        sembol.setAnimation(R.raw.parcali_bulutlu);
+                        break;
+                    case "Sağanak yağış":
+                        sembol.setAnimation(R.raw.saganak);
+                        break;
+                    default:
+                        sembol.setAnimation(R.raw.gunesli);
+                        break;
+                }
+            }
+            sembol.setVisibility(View.VISIBLE);
         }
 
         private Spanned replaceThirdSpaceWithNewline(String input) {
@@ -108,7 +137,6 @@ public class HavaDurumu extends AppCompatActivity {
 
             if (thirdIndex != -1) {
                 return Html.fromHtml(String.format("<b>%s</b><br>%s", input.substring(0, thirdIndex), input.substring(thirdIndex + 1)));
-                //return input.substring(0, thirdIndex) + "\n" + input.substring(thirdIndex + 1);
             }
             return Html.fromHtml(input);  // Üçüncü boşluk yoksa orijinal stringi döndür
         }
