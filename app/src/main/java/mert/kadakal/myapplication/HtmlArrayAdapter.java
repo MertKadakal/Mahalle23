@@ -55,13 +55,21 @@ public class HtmlArrayAdapter extends ArrayAdapter<String> {
         button.setText(Html.fromHtml(htmlText));
 
         // Butona tıklama olayını ekle
-        String finalHtmlText = getItem(position);
+        String finalHtmlText = htmlText;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(finalHtmlText.split("<br>")[3]));
-                getContext().startActivity(intent);
+                if (liste_ismi.equals("haberler")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(finalHtmlText.split("<br>")[3]));
+                    getContext().startActivity(intent);
+                } else {
+                    switch (finalHtmlText) {
+                        case "Market alışverişi":
+                            Intent intent = new Intent(getContext(), Marketler.class);
+                            getContext().startActivity(intent);
+                    }
+                }
             }
         });
         return convertView;

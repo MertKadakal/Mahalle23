@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="390dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="829dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/birinci"
+                android:layout_width="300dp"
+                android:layout_height="600dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                />
+
+            <Button
+                android:id="@+id/ikinci"
+                android:layout_width="300dp"
+                android:layout_height="600dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <Button
+                android:id="@+id/üçüncü"
+                android:layout_width="300dp"
+                android:layout_height="600dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
+            <Button
+                android:id="@+id/dördüncü"
+                android:layout_width="300dp"
+                android:layout_height="600dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <Button
+                android:id="@+id/beşinci"
+                android:layout_width="300dp"
+                android:layout_height="600dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

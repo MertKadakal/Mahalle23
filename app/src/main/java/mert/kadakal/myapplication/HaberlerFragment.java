@@ -52,40 +52,47 @@ public class HaberlerFragment extends Fragment {
         protected ArrayList<String> doInBackground(String... urls) {
 
             ArrayList<String> titles = new ArrayList<>();
-            ArrayList<String> linkler = new ArrayList<>();
             try {
                 // Fetch the web page using Jsoup
                 Document doc = Jsoup.connect(urls[0]).get();
 
                 Elements elements;
                 elements = doc.select(".MgUUmf.NUnG9d > span");
+                Log.d("tag", String.valueOf(elements.size()));
                 for (Element element : elements) {
                     String baslik = element.text();
                     titles.add(baslik);
                 }
 
                 elements = doc.select(".n0jPhd.ynAwRc.MBeuO.nDgy9d");
+                Log.d("tag", String.valueOf(elements.size()));
+
                 for (Element element : elements) {
                     String sayfa = element.text();
                     titles.add(sayfa);
                 }
 
                 elements = doc.select(".GI74Re.nDgy9d");
+                Log.d("tag", String.valueOf(elements.size()));
+
                 for (Element element : elements) {
                     String aciklama = element.text();
                     titles.add(aciklama);
                 }
 
                 elements = doc.select(".SoaBEf");
+                Log.d("tag", String.valueOf(elements.size()));
+
                 for (Element element : elements) {
                     String link = element.select("a").attr("href");
                     titles.add(link);
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("bruh", e.toString());
             }
             yukleniyor.setVisibility(View.INVISIBLE);
+            Log.d("tag", titles.toString());
             return titles;
         }
 
@@ -97,7 +104,6 @@ public class HaberlerFragment extends Fragment {
                 for (int i=0; i<result.size()/4; i++) {
                     items.add(String.format("<b>%s</b><br>%s<br>%s<br>%s", result.get(i), result.get(i+(result.size()/4)), result.get(i+2*(result.size()/4)), result.get(i+3*(result.size()/4))));
                 }
-                Log.d("items", String.valueOf(result.size()));
                 HtmlArrayAdapter adapter = new HtmlArrayAdapter(getContext(), R.layout.haberler, items, "haberler");
                 haberler_listesi.setAdapter(adapter);
             }
