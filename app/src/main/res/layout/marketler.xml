@@ -23,37 +23,42 @@
                 android:id="@+id/birinci"
                 android:layout_width="300dp"
                 android:layout_height="600dp"
+                android:layout_gravity="bottom"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                />
+                android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\nŞubeleri görmek için tıklayın" />
 
             <Button
                 android:id="@+id/ikinci"
                 android:layout_width="300dp"
                 android:layout_height="600dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_marginEnd="16dp"
+                android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\nŞubeleri görmek için tıklayın"/>
 
             <Button
                 android:id="@+id/üçüncü"
                 android:layout_width="300dp"
                 android:layout_height="600dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp" />
+                android:layout_marginEnd="16dp"
+                android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\nŞubeleri görmek için tıklayın"/>
 
             <Button
                 android:id="@+id/dördüncü"
                 android:layout_width="300dp"
                 android:layout_height="600dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_marginEnd="16dp"
+                android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\nŞubeleri görmek için tıklayın"/>
 
             <Button
                 android:id="@+id/beşinci"
                 android:layout_width="300dp"
                 android:layout_height="600dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_marginEnd="16dp"
+                android:text="\n\n\n\n\n\n\n\n\n\n\n\n\n\nŞubeleri görmek için tıklayın"/>
 
         </LinearLayout>
     </HorizontalScrollView>

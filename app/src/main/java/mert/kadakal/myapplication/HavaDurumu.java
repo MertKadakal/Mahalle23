@@ -55,7 +55,7 @@ public class HavaDurumu extends AppCompatActivity {
         sembol = findViewById(R.id.lottieAnimationView);
 
         // Trigger AsyncTask to fetch news data in the background
-        new HavaDurumu.FetchNewsTask().execute("https://havadurumu15gunluk.xyz/havadurumu/293/bursa-hava-durumu-7-gunluk.html");
+        new HavaDurumu.FetchNewsTask().execute("https://havadurumu15gunluk.xyz/havadurumu7/293/bursa-hava-durumu-7-gunluk.html");
     }
 
     private class FetchNewsTask extends AsyncTask<String, Void, Document> {

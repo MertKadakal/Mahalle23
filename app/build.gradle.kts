@@ -49,5 +49,5 @@ dependencies {
     implementation(files("C:\\Users\\HP\\OneDrive\\Masaüstü\\jsoup-1.18.1.jar"))
     implementation("com.airbnb.android:lottie:6.5.2")
     implementation("com.github.bumptech.glide:glide:4.15.1")
-
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }
