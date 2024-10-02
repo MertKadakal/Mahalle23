@@ -1,13 +1,17 @@
 package mert.kadakal.myapplication;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +45,17 @@ public class HaberlerFragment extends Fragment {
         haberler_listesi = view.findViewById(R.id.haberler_listesi);
         yukleniyor = view.findViewById(R.id.yukleniyor);
         items = new ArrayList<>();
+
+        haberler_listesi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String[] parts = items.get(i).split("<br>");
+                if (parts.length > 3) {  // URL var mı kontrolü yapıyoruz.
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(parts[3]));
+                    getContext().startActivity(intent);
+                }
+            }
+        });
 
         // Trigger AsyncTask to fetch news data in the background
         new FetchNewsTask().execute("https://www.google.com/search?q=bursa+23+nisan+%22mahallesi%22&sca_esv=cdf69acd155fddf3&sca_upv=1&rlz=1C1NDCM_enTR1036TR1036&biw=1536&bih=695&tbm=nws&sxsrf=ADLYWIIzQuPZTYitT1cClD2BE4EqApzD3g%3A1726767805848&ei=vWLsZvC6M--J7NYPm_uUgQg&ved=0ahUKEwiwjbWtx8-IAxXvBNsEHZs9JYAQ4dUDCA0&uact=5&oq=bursa+23+nisan+%22mahallesi%22&gs_lp=Egxnd3Mtd2l6LW5ld3MiGmJ1cnNhIDIzIG5pc2FuICJtYWhhbGxlc2kiMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgUQABiABEjqDFC4BljJCXAAeACQAQCYAbsGoAGXCKoBBzAuMi42LTG4AQPIAQD4AQGYAgKgAvABwgIKEAAYgAQYQxiKBZgDAIgGAZIHAzAuMqAH1xM&sclient=gws-wiz-news");
@@ -102,7 +117,7 @@ public class HaberlerFragment extends Fragment {
             // Update the ListView with the fetched data
             if (result != null) {
                 for (int i=0; i<result.size()/4; i++) {
-                    items.add(String.format("<b>%s</b><br>%s<br>%s<br>%s", result.get(i), result.get(i+(result.size()/4)), result.get(i+2*(result.size()/4)), result.get(i+3*(result.size()/4))));
+                    items.add(String.format("%s<br>%s<br>%s<br>%s", result.get(i), result.get(i+(result.size()/4)), result.get(i+2*(result.size()/4)), result.get(i+3*(result.size()/4))));
                 }
                 HtmlArrayAdapter adapter = new HtmlArrayAdapter(getContext(), R.layout.haberler, items, "haberler");
                 haberler_listesi.setAdapter(adapter);

@@ -50,14 +50,21 @@
         </activity>
 
         <activity
-            android:name=".Marketler"
+            android:name=".NereyeGitsem_SecilenKategori"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/app_name">
         </activity>
 
         <activity
-            android:name=".Subeler"
+            android:name=".Bulut"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity
+            android:name=".Toplu_ulasim"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/app_name">

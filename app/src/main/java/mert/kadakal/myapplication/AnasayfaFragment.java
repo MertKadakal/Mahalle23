@@ -15,6 +15,8 @@ public class AnasayfaFragment extends Fragment {
 
     private Button muhtarlik;
     private Button hava_durumu;
+    private Button bulut_btn;
+    private Button toplu_ulasim;
 
     @Nullable
     @Override
@@ -29,6 +31,8 @@ public class AnasayfaFragment extends Fragment {
 
         muhtarlik = view.findViewById(R.id.muhtarlik);
         hava_durumu = view.findViewById(R.id.hava_durumu);
+        bulut_btn = view.findViewById(R.id.bulut_buton);
+        toplu_ulasim = view.findViewById(R.id.toplu_ulasim);
 
         muhtarlik.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +46,22 @@ public class AnasayfaFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), HavaDurumu.class);
+                startActivity(intent);
+            }
+        });
+
+        bulut_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Bulut.class);
+                startActivity(intent);
+            }
+        });
+
+        toplu_ulasim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Toplu_ulasim.class);
                 startActivity(intent);
             }
         });

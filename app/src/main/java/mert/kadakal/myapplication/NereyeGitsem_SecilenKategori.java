@@ -7,24 +7,62 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 
-public class Marketler extends AppCompatActivity {
+public class NereyeGitsem_SecilenKategori extends AppCompatActivity {
+
+    Button btn1;
+    Button btn2;
+    Button btn3;
+    Button btn4;
+    Button btn5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.marketler);
+        setContentView(R.layout.nereyegitsem_secilenkategori);
 
+        btn1 = findViewById(R.id.birinci);
+        btn2 = findViewById(R.id.ikinci);
+        btn3 = findViewById(R.id.üçüncü);
+        btn4 = findViewById(R.id.dördüncü);
+        btn5 = findViewById(R.id.beşinci);
+
+        switch (getIntent().getStringExtra("SEÇİLEN_KATEGORİ")) {
+            case "Market alışverişi":
+                marketler();
+                break;
+            case "Halısaha":
+                halısaha();
+                break;
+        }
+    }
+
+    private void halısaha() {
+        tümünü_gizle();
+        btn1.setVisibility(View.VISIBLE);
+
+        btn1.setText("\n\n\n\n\n\n\n\n\n\n\n\n\n\nÖzcan Halısaha");
         Button btn1 = findViewById(R.id.birinci);
-        Button btn2 = findViewById(R.id.ikinci);
-        Button btn3 = findViewById(R.id.üçüncü);
-        Button btn4 = findViewById(R.id.dördüncü);
-        Button btn5 = findViewById(R.id.beşinci);
+        gorsel_ekle(getResources().getDrawable(R.drawable.ozcan_halisaha), findViewById(R.id.birinci));
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com.tr/maps/place/%C3%B6zcan+spor+tesisleri/@40.2157779,28.9427158,183m/data=!3m1!1e3!4m6!3m5!1s0x14ca3925d4e8f03f:0x5a9e0eb39cd87162!8m2!3d40.2156384!4d28.9422879!16s%2Fg%2F11k616sf7v!5m1!1e2?entry=ttu&g_ep=EgoyMDI0MDkyOS4wIKXMDSoASAFQAw%3D%3D"));
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void marketler() {
+        btn1 = findViewById(R.id.birinci);
+        btn2 = findViewById(R.id.ikinci);
+        btn3 = findViewById(R.id.üçüncü);
+        btn4 = findViewById(R.id.dördüncü);
+        btn5 = findViewById(R.id.beşinci);
 
         gorsel_ekle(getResources().getDrawable(R.drawable.amblem_a101), findViewById(R.id.birinci));
         gorsel_ekle(getResources().getDrawable(R.drawable.amblem_migros), findViewById(R.id.ikinci));
@@ -52,6 +90,14 @@ public class Marketler extends AppCompatActivity {
         btn3.setOnClickListener(listener);
         btn4.setOnClickListener(listener);
         btn5.setOnClickListener(listener);
+    }
+
+    private void tümünü_gizle() {
+        btn1.setVisibility(View.INVISIBLE);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.INVISIBLE);
     }
 
     private void gorsel_ekle(Drawable img, Button myButton) {

@@ -1,5 +1,6 @@
 package mert.kadakal.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +33,7 @@ public class NereyeGitsemFragment extends Fragment {
         items.add("Kişisel bakım");
         items.add("Market alışverişi");
         items.add("Fırın");
+        items.add("Halısaha");
 
         HtmlArrayAdapter adapter = new HtmlArrayAdapter(this.getContext(), R.layout.yapilabilecekler, items, "yapılabilecekler");
         yapilacaklar_liste.setAdapter(adapter);
@@ -42,9 +43,9 @@ public class NereyeGitsemFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (view != null) {
-                    String selectedItem = items.get(position);
-                    Toast.makeText(requireContext(), "Seçilen: " + selectedItem, Toast.LENGTH_LONG).show();
-                    Log.d("NereyeGitsemFragment", "Seçilen öğe: " + selectedItem);
+                    Intent intent = new Intent(getContext(), NereyeGitsem_SecilenKategori.class);
+                    intent.putExtra("SEÇİLEN_KATEGORİ", items.get(position));
+                    startActivity(intent);
                 } else {
                     Log.d("NereyeGitsemFragment", "View null");
                 }
@@ -55,3 +56,16 @@ public class NereyeGitsemFragment extends Fragment {
     }
 
 }
+
+//switch (htmlText) {
+//        case "Market alışverişi":
+//Intent intent = new Intent(getContext(), Marketler.class);
+//getContext().startActivity(intent);
+//                            break;
+//                                    case "Fırın":
+//Activity activity = (Activity) getContext();
+//                            if (activity != null) {
+//requestLocationPermissionAndGetLocation(activity);  // Konum izin kontrolü ve alımı fonksiyona ayrıldı.
+//                            }
+//                                    break;
+//                                    }
