@@ -105,14 +105,38 @@
 
     <Button
         android:id="@+id/buton_35E2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="316dp"
+        android:layout_width="330dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="305dp"
         android:backgroundTint="#472828"
         android:text="35E2"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/en_yakin_kalkis_35E2_1"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="360dp"
+        android:text="Kalkış bilgileri yükleniyor..."
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/en_yakin_kalkis_35E2_2"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:text="Kalkış bilgileri yükleniyor..."
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.539"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/en_yakin_kalkis_35E2_1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
