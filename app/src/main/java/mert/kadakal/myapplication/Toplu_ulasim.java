@@ -12,20 +12,16 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class Toplu_ulasim extends AppCompatActivity {
@@ -35,6 +31,9 @@ public class Toplu_ulasim extends AppCompatActivity {
     Button btn_35E2;
     TextView en_yakin_kalkis_35E2_1;
     TextView en_yakin_kalkis_35E2_2;
+    Button btn_95A;
+    TextView en_yakin_kalkis_95A_1;
+    TextView en_yakin_kalkis_95A_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +48,14 @@ public class Toplu_ulasim extends AppCompatActivity {
         btn_35E2 = findViewById(R.id.buton_35E2);
         en_yakin_kalkis_35E2_1 = findViewById(R.id.en_yakin_kalkis_35E2_1);
         en_yakin_kalkis_35E2_2 = findViewById(R.id.en_yakin_kalkis_35E2_2);
+        btn_95A = findViewById(R.id.buton_95A);
+        en_yakin_kalkis_95A_1 = findViewById(R.id.en_yakin_kalkis_95A_1);
+        en_yakin_kalkis_95A_2 = findViewById(R.id.en_yakin_kalkis_95A_2);
 
         kucuk_sanayi_git.startAnimation(anim);
         altinsehir_git.startAnimation(anim);
+        btn_35E2.startAnimation(anim);
+        btn_95A.startAnimation(anim);
 
         View.OnClickListener listener = v -> {
             Intent intent = null;
@@ -65,47 +69,63 @@ public class Toplu_ulasim extends AppCompatActivity {
                 case "buton_35E2":
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://moovitapp.com/index/tr/toplu_ta%C5%9F%C4%B1ma-line-35e2-Bursa-3663-3732394-155946318-0"));
                     break;
+                case "buton_95A":
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://moovitapp.com/index/tr/toplu_ta%C5%9F%C4%B1ma-line-95A-Bursa-3663-3732394-155946236-0"));
+                    break;
             }
             startActivity(intent);
         };
         kucuk_sanayi_git.setOnClickListener(listener);
         altinsehir_git.setOnClickListener(listener);
         btn_35E2.setOnClickListener(listener);
+        btn_95A.setOnClickListener(listener);
 
-        //35E2 hattının küçük sanayi 4'ten en yakın kalkış saati
+        //35E2 hattı
         new FetchBusTimesTask(new BusTimeCallback() {
             @Override
             public void onBusTimeFetched(ArrayList<String> en_yakin_saatler) {
-                String saat1 = en_yakin_saatler.get(0);
-                String saat2 = en_yakin_saatler.get(1);
-                if (saat1 == "null"){
-                    en_yakin_kalkis_35E2_1.setText(Html.fromHtml("→Bugün için <b>Özlüce'den</b> olan tüm seferler bitti"));
-                } else if (dakika_farki(saat1) == 0) {
-                    en_yakin_kalkis_35E2_1.setText(Html.fromHtml("→<b>Özlüce'den</b> şimdi kalktı"));
-                } else if (dakika_farki(saat1) < 60) {
-                    en_yakin_kalkis_35E2_1.setText(Html.fromHtml("→<b>" + dakika_farki(saat1) + " dakika</b> sonra <b>Özlüce'den</b> kalkış"));
-                } else {
-                    if (dakika_farki(saat2)%60 == 0) {
-                        en_yakin_kalkis_35E2_1.setText(Html.fromHtml("→<b>" + dakika_farki(saat1)/60 + " saat sonra <b>Özlüce'den</b> kalkış"));
-                    } else {
-                        en_yakin_kalkis_35E2_1.setText(Html.fromHtml("→<b>" + dakika_farki(saat1)/60 + " saat " + dakika_farki(saat1)%60 + " dakika</b> sonra <b>Özlüce'den</b> kalkış"));
-                    }
-                }
-                if (saat2 == "null"){
-                    en_yakin_kalkis_35E2_2.setText(Html.fromHtml("→Bugün için <b>Küçük Sanayi İstasyonu'ndan</b> olan tüm seferler bitti"));
-                } else if (dakika_farki(saat1) == 0) {
-                    en_yakin_kalkis_35E2_1.setText(Html.fromHtml("→<b>Küçük Sanayi İstasyonu'ndan</b> şimdi kalktı"));
-                }else if (dakika_farki(saat2) < 60) {
-                    en_yakin_kalkis_35E2_2.setText(Html.fromHtml("→<b>" + dakika_farki(saat2) + " dakika</b> sonra <b>Küçük Sanayi İstasyonu'ndan</b> kalkış"));
-                } else {
-                    if (dakika_farki(saat2)%60 == 0) {
-                        en_yakin_kalkis_35E2_2.setText(Html.fromHtml("→<b>" + dakika_farki(saat2)/60 + " saat sonra <b>Küçük Sanayi İstasyonu'ndan</b> kalkış"));
-                    } else {
-                        en_yakin_kalkis_35E2_2.setText(Html.fromHtml("→<b>" + dakika_farki(saat2)/60 + " saat " + dakika_farki(saat2)%60 + " dakika</b> sonra <b>Küçük Sanayi İstasyonu'ndan</b> kalkış"));
-                    }
-                }
+                set_bus_texts(en_yakin_saatler, en_yakin_kalkis_35E2_1, en_yakin_kalkis_35E2_2, "Özlüce'den", "Küçük Sanayi İstasyonu'ndan");
             }
         }).execute("https://www.ntv.com.tr/burulas-otobus-saatleri/35-e-2");
+
+        //95/A hattı
+        new FetchBusTimesTask(new BusTimeCallback() {
+            @Override
+            public void onBusTimeFetched(ArrayList<String> en_yakin_saatler) {
+                set_bus_texts(en_yakin_saatler, en_yakin_kalkis_95A_1, en_yakin_kalkis_95A_2, "Terminal'den", "Üçevler Mahallesi'nden");
+            }
+        }).execute("https://www.ntv.com.tr/burulas-otobus-saatleri/95-a");
+    }
+
+    private void set_bus_texts(ArrayList<String> en_yakin_saatler, TextView bus_button1, TextView bus_button2, String durak1, String durak2) {
+        String saat1 = en_yakin_saatler.get(0);
+        String saat2 = en_yakin_saatler.get(1);
+        if (saat1 == "null"){
+            bus_button1.setText(Html.fromHtml("→Bugün için <b>" + durak1 + "</b> olan tüm seferler bitti"));
+        } else if (dakika_farki(saat1) == 0) {
+            bus_button1.setText(Html.fromHtml("→<b>" + durak1 + "</b> şimdi kalktı"));
+        } else if (dakika_farki(saat1) < 60) {
+            bus_button1.setText(Html.fromHtml("→<b>" + dakika_farki(saat1) + " dakika</b> sonra <b>" + durak1 + "</b> kalkış"));
+        } else {
+            if (dakika_farki(saat1)%60 == 0) {
+                bus_button1.setText(Html.fromHtml("→<b>" + dakika_farki(saat1)/60 + " saat sonra <b>" + durak1 + "</b> kalkış"));
+            } else {
+                bus_button1.setText(Html.fromHtml("→<b>" + dakika_farki(saat1)/60 + " saat " + dakika_farki(saat1)%60 + " dakika</b> sonra <b>" + durak1 + "</b> kalkış"));
+            }
+        }
+        if (saat2 == "null"){
+            bus_button2.setText(Html.fromHtml("→Bugün için <b>" + durak2 + "</b> olan tüm seferler bitti"));
+        } else if (dakika_farki(saat2) == 0) {
+            bus_button2.setText(Html.fromHtml("→<b>" + durak2 + "</b> şimdi kalktı"));
+        }else if (dakika_farki(saat2) < 60) {
+            bus_button2.setText(Html.fromHtml("→<b>" + dakika_farki(saat2) + " dakika</b> sonra <b>" + durak2 + "</b> kalkış"));
+        } else {
+            if (dakika_farki(saat2)%60 == 0) {
+                bus_button2.setText(Html.fromHtml("→<b>" + dakika_farki(saat2)/60 + " saat sonra <b>" + durak2 + "</b> kalkış"));
+            } else {
+                bus_button2.setText(Html.fromHtml("→<b>" + dakika_farki(saat2)/60 + " saat " + dakika_farki(saat2)%60 + " dakika</b> sonra <b>" + durak2 + "</b> kalkış"));
+            }
+        }
     }
 
     private int dakika_farki(String saat) {
