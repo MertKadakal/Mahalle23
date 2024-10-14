@@ -1,6 +1,5 @@
 package mert.kadakal.myapplication;
 
-import android.widget.TextView;
 
 import java.util.ArrayList;
 

@@ -7,17 +7,17 @@
     android:background="@color/white">
 
     <ImageView
-        android:id="@+id/muhtar_foto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/muhtar"
+        android:id="@+id/taksi_foto"
+        android:layout_width="301dp"
+        android:layout_height="217dp"
+        android:layout_marginTop="176dp"
+        android:background="@drawable/taksi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/muhtar_bilgiler"
+        android:id="@+id/taksi_tel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="188dp"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/muhtar_ara"
+        android:id="@+id/taksi_ara"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"

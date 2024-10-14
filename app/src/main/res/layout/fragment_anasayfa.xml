@@ -9,10 +9,10 @@
 
     <Button
         android:id="@+id/hava_durumu"
-        android:layout_width="wrap_content"
-        android:layout_height="281dp"
+        android:layout_width="160dp"
+        android:layout_height="275dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="#BFBFBF"
         android:elevation="1dp"
         android:gravity="top"
@@ -25,10 +25,10 @@
 
     <Button
         android:id="@+id/toplu_ulasim"
-        android:layout_width="wrap_content"
-        android:layout_height="281dp"
-        android:layout_marginStart="228dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="160dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="28dp"
         android:backgroundTint="#BFBFBF"
         android:elevation="1dp"
         android:gravity="top"
@@ -36,14 +36,14 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/muhtarlik"
         android:layout_width="336dp"
         android:layout_height="111dp"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="28dp"
         android:backgroundTint="#BFBFBF"
         android:elevation="1dp"
@@ -53,7 +53,23 @@
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toplu_ulasim" />
+
+    <Button
+        android:id="@+id/taksi"
+        android:layout_width="336dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="28dp"
+        android:backgroundTint="#BFBFBF"
+        android:elevation="1dp"
+        android:gravity="top"
+        android:text="\nTaksi"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/muhtarlik" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
@@ -67,15 +83,5 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/parcali_bulutlu" />
-
-    <Button
-        android:id="@+id/bulut_buton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="520dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

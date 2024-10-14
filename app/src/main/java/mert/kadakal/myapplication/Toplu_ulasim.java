@@ -34,6 +34,9 @@ public class Toplu_ulasim extends AppCompatActivity {
     Button btn_95A;
     TextView en_yakin_kalkis_95A_1;
     TextView en_yakin_kalkis_95A_2;
+    Button btn_43H;
+    TextView en_yakin_kalkis_43H_1;
+    TextView en_yakin_kalkis_43H_2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,15 @@ public class Toplu_ulasim extends AppCompatActivity {
         btn_95A = findViewById(R.id.buton_95A);
         en_yakin_kalkis_95A_1 = findViewById(R.id.en_yakin_kalkis_95A_1);
         en_yakin_kalkis_95A_2 = findViewById(R.id.en_yakin_kalkis_95A_2);
+        btn_43H = findViewById(R.id.buton_43H);
+        en_yakin_kalkis_43H_1 = findViewById(R.id.en_yakin_kalkis_43H_1);
+        en_yakin_kalkis_43H_2 = findViewById(R.id.en_yakin_kalkis_43H_2);
 
         kucuk_sanayi_git.startAnimation(anim);
         altinsehir_git.startAnimation(anim);
         btn_35E2.startAnimation(anim);
         btn_95A.startAnimation(anim);
+        btn_43H.startAnimation(anim);
 
         View.OnClickListener listener = v -> {
             Intent intent = null;
@@ -72,6 +79,9 @@ public class Toplu_ulasim extends AppCompatActivity {
                 case "buton_95A":
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://moovitapp.com/index/tr/toplu_ta%C5%9F%C4%B1ma-line-95A-Bursa-3663-3732394-155946236-0"));
                     break;
+                case "buton_43H":
+                    intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://moovitapp.com/index/tr/toplu_ta%C5%9F%C4%B1ma-line-95A-Bursa-3663-3732394-155946236-0"));
+                    break;
             }
             startActivity(intent);
         };
@@ -79,6 +89,7 @@ public class Toplu_ulasim extends AppCompatActivity {
         altinsehir_git.setOnClickListener(listener);
         btn_35E2.setOnClickListener(listener);
         btn_95A.setOnClickListener(listener);
+        btn_43H.setOnClickListener(listener);
 
         //35E2 hattı
         new FetchBusTimesTask(new BusTimeCallback() {
@@ -86,7 +97,7 @@ public class Toplu_ulasim extends AppCompatActivity {
             public void onBusTimeFetched(ArrayList<String> en_yakin_saatler) {
                 set_bus_texts(en_yakin_saatler, en_yakin_kalkis_35E2_1, en_yakin_kalkis_35E2_2, "Özlüce'den", "Küçük Sanayi İstasyonu'ndan");
             }
-        }).execute("https://www.ntv.com.tr/burulas-otobus-saatleri/35-e-2");
+        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "https://www.ntv.com.tr/burulas-otobus-saatleri/35-e-2");
 
         //95/A hattı
         new FetchBusTimesTask(new BusTimeCallback() {
@@ -94,7 +105,16 @@ public class Toplu_ulasim extends AppCompatActivity {
             public void onBusTimeFetched(ArrayList<String> en_yakin_saatler) {
                 set_bus_texts(en_yakin_saatler, en_yakin_kalkis_95A_1, en_yakin_kalkis_95A_2, "Terminal'den", "Üçevler Mahallesi'nden");
             }
-        }).execute("https://www.ntv.com.tr/burulas-otobus-saatleri/95-a");
+        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "https://www.ntv.com.tr/burulas-otobus-saatleri/95-a");
+
+        //43/H hattı
+        new FetchBusTimesTask(new BusTimeCallback() {
+            @Override
+            public void onBusTimeFetched(ArrayList<String> en_yakin_saatler) {
+                set_bus_texts(en_yakin_saatler, en_yakin_kalkis_43H_1, en_yakin_kalkis_43H_2, "Terminal'den", "Uludağ Üniversitesi'nden");
+            }
+        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "https://www.ntv.com.tr/burulas-otobus-saatleri/43-h");
+
     }
 
     private void set_bus_texts(ArrayList<String> en_yakin_saatler, TextView bus_button1, TextView bus_button2, String durak1, String durak2) {

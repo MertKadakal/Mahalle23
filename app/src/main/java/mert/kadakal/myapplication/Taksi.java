@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Muhtarlik extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+public class Taksi extends AppCompatActivity {
 
     ImageView btn1;
     TextView btn2;
@@ -22,12 +24,12 @@ public class Muhtarlik extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.muhtarlik);
+        setContentView(R.layout.taksi);
 
-        btn1 = findViewById(R.id.muhtar_foto);
-        btn2 = findViewById(R.id.muhtar_bilgiler);
-        btn2.setText("0541 772 88 90");
-        btn3 = findViewById(R.id.muhtar_ara);
+        btn1 = findViewById(R.id.taksi_foto);
+        btn2 = findViewById(R.id.taksi_tel);
+        btn2.setText("0530 037 47 27");
+        btn3 = findViewById(R.id.taksi_ara);
 
         Animation slideDown = AnimationUtils.loadAnimation(this, R.transition.slide_down);
         Animation slideUp = AnimationUtils.loadAnimation(this, R.transition.slide_up);
@@ -40,7 +42,7 @@ public class Muhtarlik extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:05417728890")));
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:05300374727")));
             }
         });
     }
