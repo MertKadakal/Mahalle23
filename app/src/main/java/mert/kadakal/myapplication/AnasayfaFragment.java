@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,8 @@ public class AnasayfaFragment extends Fragment implements View.OnClickListener {
     private Button hava_durumu;
     private Button toplu_ulasim;
     private Button taksi;
+    private Button satilik;
+    private Button kiralik;
 
     @Nullable
     @Override
@@ -33,12 +36,15 @@ public class AnasayfaFragment extends Fragment implements View.OnClickListener {
         hava_durumu = view.findViewById(R.id.hava_durumu);
         toplu_ulasim = view.findViewById(R.id.toplu_ulasim);
         taksi = view.findViewById(R.id.taksi);
+        satilik = view.findViewById(R.id.satılık);
+        kiralik = view.findViewById(R.id.kiralık);
 
-        // Tek bir OnClickListener ile bütün butonlar için tıklama olaylarını ayarlıyoruz
         muhtarlik.setOnClickListener(this);
         hava_durumu.setOnClickListener(this);
         toplu_ulasim.setOnClickListener(this);
         taksi.setOnClickListener(this);
+        satilik.setOnClickListener(this);
+        kiralik.setOnClickListener(this);
     }
 
     @Override
@@ -52,12 +58,17 @@ public class AnasayfaFragment extends Fragment implements View.OnClickListener {
             startListener(Toplu_ulasim.class);
         } else if (view.getId() == R.id.taksi) {
             startListener(Taksi.class);
+        } else if (view.getId() == R.id.satılık) {
+            startListener(SatilikDaireler.class);
+        } else if (view.getId() == R.id.kiralık) {
+            startListener(KiralikDaireler.class);
         }
     }
 
     // Belirtilen sınıfı başlatan metod
     private void startListener(Class<?> activityClass) {
         Intent intent = new Intent(getContext(), activityClass);
+        intent.putExtra("class_name", activityClass.getSimpleName());
         startActivity(intent);
     }
 }

@@ -55,6 +55,12 @@ public class HtmlArrayAdapter extends ArrayAdapter<String> {
                 TextView textView = convertView.findViewById(R.id.nereye_gitsem_item);
                 String htmlText = getItem(position);
                 textView.setText(Html.fromHtml(htmlText));
+            } else if (liste_ismi.equals("satilik")) {
+                Toast.makeText(getContext(), "aaaa", Toast.LENGTH_SHORT).show();
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.satilik_kiralik_daireler, parent, false);
+                TextView textView = convertView.findViewById(R.id.satılık);
+                String htmlText = getItem(position);
+                textView.setText(Html.fromHtml(htmlText));
             }
         } else {
             TextView textView = convertView.findViewById(R.id.nereye_gitsem_item);

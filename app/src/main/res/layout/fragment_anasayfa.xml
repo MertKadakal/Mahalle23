@@ -71,17 +71,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/muhtarlik" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="116dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="156dp"
-        android:elevation="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/hava_durumu"
-        app:layout_constraintStart_toStartOf="@+id/hava_durumu"
-        app:layout_constraintTop_toTopOf="@+id/hava_durumu"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/parcali_bulutlu" />
+    <Button
+        android:id="@+id/satılık"
+        android:layout_width="148dp"
+        android:layout_height="107dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="28dp"
+        android:backgroundTint="#BFBFBF"
+        android:elevation="1dp"
+        android:gravity="top"
+        android:text="\nSatılık"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taksi" />
+
+    <Button
+        android:id="@+id/kiralık"
+        android:layout_width="148dp"
+        android:layout_height="107dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#BFBFBF"
+        android:elevation="1dp"
+        android:gravity="top"
+        android:text="\nKiralık"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taksi" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
