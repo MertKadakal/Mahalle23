@@ -59,16 +59,19 @@ public class AnasayfaFragment extends Fragment implements View.OnClickListener {
         } else if (view.getId() == R.id.taksi) {
             startListener(Taksi.class);
         } else if (view.getId() == R.id.satılık) {
-            startListener(SatilikDaireler.class);
+            Intent intent = new Intent(getContext(), SatilikDaireler.class);
+            intent.putExtra("ilan_türü", "satilik");
+            startActivity(intent);
         } else if (view.getId() == R.id.kiralık) {
-            startListener(KiralikDaireler.class);
+            Intent intent = new Intent(getContext(), SatilikDaireler.class);
+            intent.putExtra("ilan_türü", "kiralik");
+            startActivity(intent);
         }
     }
 
     // Belirtilen sınıfı başlatan metod
     private void startListener(Class<?> activityClass) {
         Intent intent = new Intent(getContext(), activityClass);
-        intent.putExtra("class_name", activityClass.getSimpleName());
         startActivity(intent);
     }
 }

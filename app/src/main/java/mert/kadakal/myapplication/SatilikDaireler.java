@@ -37,7 +37,7 @@ public class SatilikDaireler extends AppCompatActivity {
             Document doc;
             try {
                 // Fetch the document in the background
-                doc = NetworkUtils.connectToUrl("https://www.emlakjet.com/satilik-daire/bursa-nilufer-23-nisan-mahallesi/");
+                doc = NetworkUtils.connectToUrl("https://www.emlakjet.com/"+getIntent().getStringExtra("ilan_türü")+"-daire/bursa-nilufer-23-nisan-mahallesi/");
 
                 // Update the UI on the main thread
                 runOnUiThread(() -> {
