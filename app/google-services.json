@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "904116498617",
-    "project_id": "fir-b5b83",
-    "storage_bucket": "fir-b5b83.appspot.com"
+    "project_number": "992894157505",
+    "project_id": "fir-2-adfbf",
+    "storage_bucket": "fir-2-adfbf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:904116498617:android:300de4ae683de24c4f6b68",
+        "mobilesdk_app_id": "1:992894157505:android:1162cf6a3814d326170a40",
         "android_client_info": {
           "package_name": "mert.kadakal.myapplication"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDNYkhFxw5kUCms9xg_oWSOG-jw7A1L7Kw"
+          "current_key": "AIzaSyD8OLxJ7w52HJJoRURbUqmCCdMWxE-DuHI"
         }
       ],
       "services": {

@@ -1,8 +1,7 @@
 package mert.kadakal.myapplication;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -29,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new AnasayfaFragment());
             } else if (item.getItemId() == R.id.navigation_nereye_gitsem) {
                 replaceFragment(new NereyeGitsemFragment());
-            } else if (item.getItemId() == R.id.navigation_nasil_gidilir) {
-                replaceFragment(new NasilGidilirFragment());
+            } else if (item.getItemId() == R.id.navigation_topluluk) {
+                replaceFragment(new Tartisma());
             } else if (item.getItemId() == R.id.navigation_haberler) {
                 replaceFragment(new HaberlerFragment());
             }

@@ -12,9 +12,9 @@
         android:title="Nereye Gitsem" />
 
     <item
-        android:id="@+id/navigation_nasil_gidilir"
-        android:icon="@drawable/path"
-        android:title="Nasıl Gidilir" />
+        android:id="@+id/navigation_topluluk"
+        android:icon="@drawable/topluluk"
+        android:title="Topluluk" />
 
     <item
         android:id="@+id/navigation_haberler"
