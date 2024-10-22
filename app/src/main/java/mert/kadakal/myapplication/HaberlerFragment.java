@@ -73,14 +73,12 @@ public class HaberlerFragment extends Fragment {
 
                 Elements elements;
                 elements = doc.select(".MgUUmf.NUnG9d > span");
-                Log.d("tag", String.valueOf(elements.size()));
                 for (Element element : elements) {
                     String baslik = element.text();
                     titles.add(baslik);
                 }
 
                 elements = doc.select(".n0jPhd.ynAwRc.MBeuO.nDgy9d");
-                Log.d("tag", String.valueOf(elements.size()));
 
                 for (Element element : elements) {
                     String sayfa = element.text();
@@ -88,15 +86,14 @@ public class HaberlerFragment extends Fragment {
                 }
 
                 elements = doc.select(".GI74Re.nDgy9d");
-                Log.d("tag", String.valueOf(elements.size()));
 
                 for (Element element : elements) {
                     String aciklama = element.text();
+                    Log.d("tag", aciklama);
                     titles.add(aciklama);
                 }
 
                 elements = doc.select(".SoaBEf");
-                Log.d("tag", String.valueOf(elements.size()));
 
                 for (Element element : elements) {
                     String link = element.select("a").attr("href");
@@ -107,7 +104,6 @@ public class HaberlerFragment extends Fragment {
                 Log.d("bruh", e.toString());
             }
             yukleniyor.setVisibility(View.INVISIBLE);
-            Log.d("tag", titles.toString());
             return titles;
         }
 

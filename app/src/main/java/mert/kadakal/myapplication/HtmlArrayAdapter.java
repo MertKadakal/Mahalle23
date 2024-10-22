@@ -41,29 +41,23 @@ public class HtmlArrayAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            if (liste_ismi.equals("haberler")) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.haberler, parent, false);
-                TextView haber_sayfasi_text = convertView.findViewById(R.id.haber_sayfasi);
-                String[] parts = getItem(position).split("<br>");
-                if (parts.length >= 3) {  // Split işlemini güvenli hale getirdik
-                    String htmlText = "<b>" + parts[1] + "</b><br><br>" + parts[2] + "<br><br><i>" + parts[0] + "</i>";
-                    haber_sayfasi_text.setText(Html.fromHtml(htmlText));
-                }
-            } else if (liste_ismi.equals("yapılabilecekler")) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.yapilabilecekler, parent, false);
-                TextView textView = convertView.findViewById(R.id.nereye_gitsem_item);
-                String htmlText = getItem(position);
-                textView.setText(Html.fromHtml(htmlText));
-            } else if (liste_ismi.equals("satilik")) {
-                Toast.makeText(getContext(), "aaaa", Toast.LENGTH_SHORT).show();
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.satilik_kiralik_daireler, parent, false);
-                TextView textView = convertView.findViewById(R.id.satılık);
-                String htmlText = getItem(position);
-                textView.setText(Html.fromHtml(htmlText));
+        if (liste_ismi.equals("haberler")) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.haberler, parent, false);
+            TextView haber_sayfasi_text = convertView.findViewById(R.id.haber_sayfasi);
+            String[] parts = getItem(position).split("<br>");
+            if (parts.length >= 3) {  // Split işlemini güvenli hale getir
+                String htmlText = "<b>" + parts[1] + "</b><br><br>" + parts[2] + "<br><br><i>" + parts[0] + "</i>";
+                haber_sayfasi_text.setText(Html.fromHtml(htmlText));
             }
-        } else {
+        } else if (liste_ismi.equals("yapılabilecekler")) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.yapilabilecekler, parent, false);
             TextView textView = convertView.findViewById(R.id.nereye_gitsem_item);
+            String htmlText = getItem(position);
+            textView.setText(Html.fromHtml(htmlText));
+        } else if (liste_ismi.equals("satilik")) {
+            Toast.makeText(getContext(), "aaaa", Toast.LENGTH_SHORT).show();
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.satilik_kiralik_daireler, parent, false);
+            TextView textView = convertView.findViewById(R.id.satılık);
             String htmlText = getItem(position);
             textView.setText(Html.fromHtml(htmlText));
         }
