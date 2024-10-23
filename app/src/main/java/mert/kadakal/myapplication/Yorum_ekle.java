@@ -1,9 +1,12 @@
 package mert.kadakal.myapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,15 +27,16 @@ import java.util.Map;
 
 public class Yorum_ekle extends AppCompatActivity {
 
-    EditText isim;
+    TextView isim;
     EditText yorum;
     Button tamam;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.yorum_ekle);
+        SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
 
-        isim = findViewById(R.id.isim);
+        isim = findViewById(R.id.isim_olarak_yorum_yap); isim.setText(Html.fromHtml("<b>"+sharedPreferences.getString("hesap_ismi", "YOK")+"</b> olarak yorum ekliyorsunuz"));
         yorum = findViewById(R.id.yorum);
         tamam = findViewById(R.id.ekle);
 
@@ -43,11 +47,11 @@ public class Yorum_ekle extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         tamam.setOnClickListener(view -> {
-            if (isim.getText().toString().length() == 0 || yorum.getText().toString().length() == 0) {
+            if (yorum.getText().toString().length() == 0) {
                 Toast.makeText(this, "Lütfen gerekli alanları doldurunuz", Toast.LENGTH_SHORT).show();
             } else {
                 Map<String, Object> eklenen_yorum = new HashMap<>();
-                eklenen_yorum.put("isim", isim.getText().toString());
+                eklenen_yorum.put("isim", sharedPreferences.getString("hesap_ismi", "YOK"));
                 eklenen_yorum.put("yorum", yorum.getText().toString());
                 eklenen_yorum.put("tarih", tarihStr);
                 eklenen_yorum.put("beğeni_sayısı", 0);
@@ -71,7 +75,7 @@ public class Yorum_ekle extends AppCompatActivity {
                         });
 
                 Toast.makeText(Yorum_ekle.this, "Yorum başarıyla eklendi", Toast.LENGTH_SHORT).show();
-                isim.getText().clear();
+                onBackPressed();
                 yorum.getText().clear();
             }
         });

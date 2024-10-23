@@ -1,7 +1,10 @@
 package mert.kadakal.myapplication;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,20 +30,48 @@ import java.util.Map;
 
 public class Tartisma extends Fragment {
     Button yorum_ekle;
+    Button hesap_oluştur;
+    Button giriş_yap;
     ArrayList<String> yorumlar = new ArrayList<>();
     private ListView yorumlar_listesi;
     private ArrayList<String> yorum_id_listesi = new ArrayList<>();
+    SharedPreferences sharedPreferences;
 
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tartisma, container, false);
+        sharedPreferences = getActivity().getSharedPreferences("myPrefs", MODE_PRIVATE);
         yorum_ekle = view.findViewById(R.id.yorum_ekleme_butonu);
+        hesap_oluştur = view.findViewById(R.id.hesap_oluştur);
+        giriş_yap = view.findViewById(R.id.giriş_yap);
+        yorum_ekle.setVisibility(View.INVISIBLE);
+        hesap_oluştur.setVisibility(View.INVISIBLE);
+        giriş_yap.setVisibility(View.INVISIBLE);
+
         yorum_ekle.setOnClickListener(view1 -> {
             Intent intent = new Intent(getContext(), Yorum_ekle.class);
             startActivity(intent);
         });
+        hesap_oluştur.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getContext(), Hesap_oluştur_giriş.class);
+            intent.putExtra("oluştur_giriş", "Oluştur");
+            startActivity(intent);
+        });
+        giriş_yap.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getContext(), Hesap_oluştur_giriş.class);
+            intent.putExtra("oluştur_giriş", "Giriş yap");
+            startActivity(intent);
+        });
+
+        //hesabın açık olup olmamasına göre alttaki butonları göster
+        if (!sharedPreferences.getBoolean("hesap_açık_mı", false)) {
+            hesap_oluştur.setVisibility(View.VISIBLE);
+            giriş_yap.setVisibility(View.VISIBLE);
+        } else {
+            yorum_ekle.setVisibility(View.VISIBLE);
+        }
 
         yorumlar_listesi = view.findViewById(R.id.yorumlar_listesi);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -67,5 +98,19 @@ public class Tartisma extends Fragment {
                     }
                 });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        yorum_ekle.setVisibility(View.INVISIBLE);
+        hesap_oluştur.setVisibility(View.INVISIBLE);
+        giriş_yap.setVisibility(View.INVISIBLE);
+        if (!sharedPreferences.getBoolean("hesap_açık_mı", false)) {
+            hesap_oluştur.setVisibility(View.VISIBLE);
+            giriş_yap.setVisibility(View.VISIBLE);
+        } else {
+            yorum_ekle.setVisibility(View.VISIBLE);
+        }
     }
 }

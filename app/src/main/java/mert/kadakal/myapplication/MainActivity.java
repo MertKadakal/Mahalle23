@@ -1,5 +1,6 @@
 package mert.kadakal.myapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
+        boolean isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
+        if (isFirstRun) {
+            isFirstRun = false;
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("hesap_açık_mı", false);
+            editor.putString("hesap_ismi", "");
+            editor.putString("hesap_şifresi", "");
+            editor.apply();
+        }
 
         // View Binding'i etkinleştir
         binding = ActivityMainBinding.inflate(getLayoutInflater());

@@ -85,6 +85,13 @@
             android:label="@string/app_name">
         </activity>
 
+        <activity
+            android:name=".Hesap_oluştur_giriş"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:label="@string/app_name">
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

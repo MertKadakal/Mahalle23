@@ -5,27 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/isim_olarak_yorum_yap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:text="isim olarak yorum yapınız"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/yorum"
+    <EditText
+        android:id="@+id/isim"
+        android:layout_width="315dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="76dp"
+        android:background="#F0ECEC"
+        android:ems="10"
+        android:hint="İsminizi giriniz"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#BC9E9E"
+        android:textColorLink="#D17373"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/yorum"
+        android:id="@+id/şifre"
         android:layout_width="315dp"
-        android:layout_height="191dp"
+        android:layout_height="44dp"
         android:layout_marginTop="140dp"
         android:background="#F0ECEC"
         android:ems="10"
-        android:hint="Yorumunuzu giriniz"
+        android:hint="Şifrenizi giriniz"
         android:inputType="textMultiLine"
         android:padding="10dp"
         android:textColor="#000000"
@@ -36,15 +40,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ekle"
+        android:id="@+id/hesap_ekle_giriş"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Tamam"
+        android:text="default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yorum" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/şifre" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,7 +63,7 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         String tarih = getItem(position).split("<kay>")[2];
         String beğeni_sayısı = getItem(position).split("<kay>")[3];
         textView.setText(Html.fromHtml(String.format("<b>%s</b><br>%s<br>", isim, tarih)));
-        textView2.setText(Html.fromHtml(String.format("%s<br><br><b>%s kişi</b> bu yorumu beğendi", yorum, beğeni_sayısı)));
+        textView2.setText(Html.fromHtml(String.format("%s<br><br><b>%s</b> beğeni", yorum, beğeni_sayısı)));
 
         return convertView;
     }
