@@ -2,12 +2,17 @@ package mert.kadakal.myapplication;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.Collections;
+
+import kotlin.collections.builders.SetBuilder;
 import mert.kadakal.myapplication.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
         boolean isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
         if (isFirstRun) {
-            isFirstRun = false;
             SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isFirstRun", false);
             editor.putBoolean("hesap_açık_mı", false);
             editor.putString("hesap_ismi", "");
             editor.putString("hesap_şifresi", "");
             editor.apply();
         }
+
 
         // View Binding'i etkinleştir
         binding = ActivityMainBinding.inflate(getLayoutInflater());

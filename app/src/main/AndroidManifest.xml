@@ -79,7 +79,7 @@
         </activity>
 
         <activity
-            android:name=".Yorum_ekle"
+            android:name=".Yorum_ekle_düzenle"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="@string/app_name">

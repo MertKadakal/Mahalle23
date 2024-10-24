@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +24,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Tartisma extends Fragment {
     Button yorum_ekle;
@@ -51,7 +48,8 @@ public class Tartisma extends Fragment {
         giriş_yap.setVisibility(View.INVISIBLE);
 
         yorum_ekle.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getContext(), Yorum_ekle.class);
+            Intent intent = new Intent(getContext(), Yorum_ekle_düzenle.class);
+            intent.putExtra("ekle_düzenle", "ekle");
             startActivity(intent);
         });
         hesap_oluştur.setOnClickListener(view1 -> {

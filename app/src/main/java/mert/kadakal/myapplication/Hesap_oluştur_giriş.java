@@ -18,6 +18,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,7 +66,14 @@ public class Hesap_oluştur_giriş extends AppCompatActivity {
                                         Map<String, Object> eklenen_hesap = new HashMap<>();
                                         eklenen_hesap.put("isim", isim.getText().toString());
                                         eklenen_hesap.put("şifre", şifre.getText().toString());
-                                        db.collection("hesaplar").add(eklenen_hesap);
+                                        eklenen_hesap.put("beğenilen_yorumlar", new ArrayList<String>());
+                                        db.collection("hesaplar").add(eklenen_hesap).addOnSuccessListener(documentReference -> {
+                                            String hesapId = documentReference.getId();
+                                            // ID'yi belgeye ekleyin
+                                            db.collection("hesaplar").document(hesapId)
+                                                    .update("hesapId", hesapId);// ID'yi bir alan olarak ekle
+                                        });
+
                                         Toast.makeText(Hesap_oluştur_giriş.this, "Hesap başarıyla oluşturuldu, oturum açıldı", Toast.LENGTH_SHORT).show();
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putBoolean("hesap_açık_mı", true);
