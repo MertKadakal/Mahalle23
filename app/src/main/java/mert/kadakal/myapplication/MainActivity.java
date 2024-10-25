@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Collections;
 
-import kotlin.collections.builders.SetBuilder;
 import mert.kadakal.myapplication.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
         boolean isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
+        Toast.makeText(this, String.valueOf(isFirstRun), Toast.LENGTH_SHORT).show();
         if (isFirstRun) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("isFirstRun", false);
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("hesap_şifresi", "");
             editor.apply();
         }
-
 
         // View Binding'i etkinleştir
         binding = ActivityMainBinding.inflate(getLayoutInflater());

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 
 public class Tartisma extends Fragment {
     Button yorum_ekle;
+    Button çıkış_yap;
     Button hesap_oluştur;
     Button giriş_yap;
     ArrayList<String> yorumlar = new ArrayList<>();
@@ -41,14 +43,16 @@ public class Tartisma extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tartisma, container, false);
         sharedPreferences = getActivity().getSharedPreferences("myPrefs", MODE_PRIVATE);
         yorum_ekle = view.findViewById(R.id.yorum_ekleme_butonu);
+        çıkış_yap = view.findViewById(R.id.hesaptan_cikis_butonu);
         hesap_oluştur = view.findViewById(R.id.hesap_oluştur);
         giriş_yap = view.findViewById(R.id.giriş_yap);
         yorum_ekle.setVisibility(View.INVISIBLE);
-        hesap_oluştur.setVisibility(View.INVISIBLE);
-        giriş_yap.setVisibility(View.INVISIBLE);
+        çıkış_yap.setVisibility(View.INVISIBLE);
+        hesap_oluştur.setVisibility(View.VISIBLE);
+        giriş_yap.setVisibility(View.VISIBLE);
 
         yorum_ekle.setOnClickListener(view1 -> {
-            Intent intent = new Intent(getContext(), Yorum_ekle_düzenle.class);
+            Intent intent = new Intent(getContext(), Yorum_ekle_düzenle_yanıtla.class);
             intent.putExtra("ekle_düzenle", "ekle");
             startActivity(intent);
         });
@@ -62,13 +66,20 @@ public class Tartisma extends Fragment {
             intent.putExtra("oluştur_giriş", "Giriş yap");
             startActivity(intent);
         });
+        çıkış_yap.setOnClickListener(view1 -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("hesap_açık_mı", false);
+            editor.apply();
+            Toast.makeText(getContext(), "Hesaptan çıkış yapıldı", Toast.LENGTH_SHORT).show();
+        });
 
         //hesabın açık olup olmamasına göre alttaki butonları göster
-        if (!sharedPreferences.getBoolean("hesap_açık_mı", false)) {
+        if (sharedPreferences.getBoolean("hesap_açık_mı", false)) {
             hesap_oluştur.setVisibility(View.VISIBLE);
             giriş_yap.setVisibility(View.VISIBLE);
         } else {
             yorum_ekle.setVisibility(View.VISIBLE);
+            çıkış_yap.setVisibility(View.VISIBLE);
         }
 
         yorumlar_listesi = view.findViewById(R.id.yorumlar_listesi);
@@ -81,7 +92,6 @@ public class Tartisma extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d("TAG", document.getId() + " => " + document.getData());
                                 yorumlar.add(document.getString("isim") + "<kay>"
                                         + document.getString("yorum") + "<kay>"
                                         + document.getString("tarih") + "<kay>"
@@ -104,11 +114,13 @@ public class Tartisma extends Fragment {
         yorum_ekle.setVisibility(View.INVISIBLE);
         hesap_oluştur.setVisibility(View.INVISIBLE);
         giriş_yap.setVisibility(View.INVISIBLE);
+        çıkış_yap.setVisibility(View.INVISIBLE);
         if (!sharedPreferences.getBoolean("hesap_açık_mı", false)) {
             hesap_oluştur.setVisibility(View.VISIBLE);
             giriş_yap.setVisibility(View.VISIBLE);
         } else {
             yorum_ekle.setVisibility(View.VISIBLE);
+            çıkış_yap.setVisibility(View.VISIBLE);
         }
     }
 }

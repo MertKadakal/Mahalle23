@@ -29,6 +29,8 @@ import java.util.List;
 
 public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
     Button yorum_begen;
+    Button yanıtları_gör;
+    Button yorumu_yanıtla;
     Button yorum_sil;
     Button yorum_düzenle;
     ArrayList<String> id_list;
@@ -49,23 +51,47 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
 
         TextView textView = convertView.findViewById(R.id.yorumlar_item);
         TextView textView2 = convertView.findViewById(R.id.yorumlar_item2);
+
         yorum_sil = convertView.findViewById(R.id.yorumu_sil);
+        yanıtları_gör = convertView.findViewById(R.id.yanıtları_gör_butonu);
+        yorumu_yanıtla = convertView.findViewById(R.id.yoruma_yanit_ekle_butonu);
         yorum_düzenle = convertView.findViewById(R.id.yorumu_düzenle);
+        yorum_begen = convertView.findViewById(R.id.yorum_begen_butonu);
+
         String isim = getItem(position).split("<kay>")[0];
         String yorum = getItem(position).split("<kay>")[1];
         String tarih = getItem(position).split("<kay>")[2];
         String beğeni_sayısı = getItem(position).split("<kay>")[3];
         textView.setText(Html.fromHtml(String.format("<b>%s</b><br>%s<br>", isim, tarih)));
         textView2.setText(Html.fromHtml(String.format("%s<br><br><b>%s</b> beğeni", yorum, beğeni_sayısı)));
+
+        if (sharedPreferences.getBoolean("hesap_açık_mı", false)) {
+            yorumu_yanıtla.setVisibility(View.VISIBLE);
+            yorum_begen.setVisibility(View.VISIBLE);
+        }
+
         if (sharedPreferences.getBoolean("hesap_açık_mı", false) && isim.equals(sharedPreferences.getString("hesap_ismi", "YOK"))) {
             yorum_sil.setVisibility(View.VISIBLE);
             yorum_düzenle.setVisibility(View.VISIBLE);
         }
 
-        yorum_begen = convertView.findViewById(R.id.yorum_begen_butonu);
+        db.collection("yorumlar").whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                if (Integer.parseInt(document.get("yanıt_sayısı").toString()) > 0) {
+                    yanıtları_gör.setText("Yanıtlar ("+document.get("yanıt_sayısı").toString()+")");
+                    yanıtları_gör.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         yorum_begen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!(sharedPreferences.getBoolean("hesap_açık_mı", false))) {
+                    Toast.makeText(getContext(), "Yorum beğenmek için oturum açmanız gerek", Toast.LENGTH_SHORT).show();
+                } else {
                     db.collection("hesaplar")
                             .whereEqualTo("isim", sharedPreferences.getString("hesap_ismi", "YOK"))
                             .get()
@@ -103,6 +129,7 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
                                 }
                             });
                 }
+            }
         });
 
         yorum_sil.setOnClickListener(new View.OnClickListener() {
@@ -130,10 +157,27 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        Intent intent = new Intent(getContext(), Yorum_ekle_düzenle.class);
+                        Intent intent = new Intent(getContext(), Yorum_ekle_düzenle_yanıtla.class);
                         intent.putExtra("ekle_düzenle", "düzenle");
                         intent.putExtra("mevcut_yorum", document.get("yorum").toString());
                         intent.putExtra("yorum_id", id_list.get(position));
+                        getContext().startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        yorumu_yanıtla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.collection("yorumlar").whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                        Intent intent = new Intent(getContext(), Yorum_ekle_düzenle_yanıtla.class);
+                        intent.putExtra("ekle_düzenle", "yanıtla");
+                        intent.putExtra("kimeId", id_list.get(position));
+                        intent.putExtra("yorum_yapılan_isim", (String) document.get("isim"));
                         getContext().startActivity(intent);
                     }
                 });

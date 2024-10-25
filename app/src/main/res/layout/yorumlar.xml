@@ -31,9 +31,18 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/yanıtları_gör_butonu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_marginRight="5dp"
+                android:text="Yanıtları gör" />
+
+            <Button
                 android:id="@+id/yorum_begen_butonu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_marginRight="5dp"
                 android:text="Beğen" />
 
@@ -41,6 +50,7 @@
                 android:id="@+id/yoruma_yanit_ekle_butonu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_marginRight="5dp"
                 android:text="Yanıtla" />
         </LinearLayout>
