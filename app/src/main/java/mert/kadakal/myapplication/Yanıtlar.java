@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 
 public class Yanıtlar extends AppCompatActivity {
     ArrayList<String> yorumlar = new ArrayList<>();
+    TextView hnzyrmyok;
     private ListView yorumlar_listesi;
     private ArrayList<String> yorum_id_listesi = new ArrayList<>();
     SharedPreferences sharedPreferences;
@@ -43,6 +45,7 @@ public class Yanıtlar extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("myPrefs", MODE_PRIVATE);
 
         yorumlar_listesi = findViewById(R.id.yorumlar_listesi);
+        hnzyrmyok = findViewById(R.id.textView2);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("yanıt_yorumlar")
@@ -59,8 +62,12 @@ public class Yanıtlar extends AppCompatActivity {
                                         + document.get("beğeni_sayısı"));
                                 yorum_id_listesi.add(document.getString("yorumId"));
                             }
-                            HtmlArrayAdapterYorumlar adapter = new HtmlArrayAdapterYorumlar(getApplicationContext(), R.layout.yorumlar, yorumlar, yorum_id_listesi, "yanıt_yorumlar");
-                            yorumlar_listesi.setAdapter(adapter);
+                            if (yorumlar.size() > 0) {
+                                HtmlArrayAdapterYorumlar adapter = new HtmlArrayAdapterYorumlar(getApplicationContext(), R.layout.yorumlar, yorumlar, yorum_id_listesi, "yanıt_yorumlar");
+                                yorumlar_listesi.setAdapter(adapter);
+                            } else {
+                                hnzyrmyok.setVisibility(View.VISIBLE);
+                            }
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }

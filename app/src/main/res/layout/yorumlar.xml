@@ -8,66 +8,104 @@
     android:layout_gravity="center_horizontal"
     android:padding="2dp">
 
-    <!-- Üstteki TextView ve butonları yan yana koyan yatay LinearLayout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"> <!-- Yorum ile butonlar arasına boşluk ekledik -->
+
+        <LinearLayout
+            android:layout_width="274dp"
+            android:layout_height="wrap_content"
+            android:background="#C3C1C1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/yapılan_yorum"
+                android:layout_width="264dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="adsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadas"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="end"> <!-- Butonları sağa hizalamak için gravity eklendi -->
+
+            <TextView
+                android:id="@+id/yorum_tarihi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="yorum yapılma tarihi"
+                android:textColor="#000000"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/yanıtları_gör_butonu"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:textSize="9dp"
+                android:layout_marginTop="5dp"
+                android:text="Yanıtları gör" />
+
+            <Button
+                android:id="@+id/yorum_begen_butonu"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:textSize="9dp"
+                android:visibility="invisible"
+                android:layout_marginTop="5dp"
+                android:text="Beğen" />
+
+            <Button
+                android:id="@+id/yoruma_yanit_ekle_butonu"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:textSize="9dp"
+                android:visibility="invisible"
+                android:layout_marginTop="5dp"
+                android:text="Yanıtla" />
+        </LinearLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/yorumlar_item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="adsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadas"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+        <Button
+            android:id="@+id/yorumu_sil"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:textSize="9dp"
+            android:layout_marginRight="5dp"
+            android:text="Yorumu sil"
+            android:visibility="invisible"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/yanıtları_gör_butonu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_marginRight="5dp"
-                android:text="Yanıtları gör" />
-
-            <Button
-                android:id="@+id/yorum_begen_butonu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_marginRight="5dp"
-                android:text="Beğen" />
-
-            <Button
-                android:id="@+id/yoruma_yanit_ekle_butonu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_marginRight="5dp"
-                android:text="Yanıtla" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/yorumu_düzenle"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:textSize="9dp"
+            android:layout_marginRight="5dp"
+            android:text="Yorumu düzenle"
+            android:visibility="invisible"/>
     </LinearLayout>
-
-    <!-- Alttaki TextView, üstteki düzenin altında tam genişlikte olacak -->
-    <TextView
-        android:id="@+id/yorumlar_item2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:text="adsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadasadsadas"
-        android:textAlignment="textStart"
-        android:textColor="#000000"
-        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/yorum_beğenen_sayısı"
@@ -79,26 +117,5 @@
         android:text=""
         android:textAlignment="textStart"
         android:textColor="#000000"
-        android:textSize="15sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/yorumu_sil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:text="Yorumu sil"
-            android:visibility="invisible"/>
-
-        <Button
-            android:id="@+id/yorumu_düzenle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:text="Yorumu düzenle"
-            android:visibility="invisible"/>
-    </LinearLayout>
+        android:textSize="10sp" />
 </LinearLayout>

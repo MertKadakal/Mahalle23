@@ -12,20 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +30,14 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
     Button yorum_düzenle;
     ArrayList<String> id_list;
     String yanıt;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public HtmlArrayAdapterYorumlar(Context context, int resource, List<String> items, ArrayList<String> id_list, String yanıt) {
         super(context, resource, items);
         this.id_list = id_list;
         this.yanıt = yanıt;
+
+
     }
 
     @Override
@@ -52,23 +47,25 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         }
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        TextView textView = convertView.findViewById(R.id.yorumlar_item);
-        TextView textView2 = convertView.findViewById(R.id.yorumlar_item2);
+        TextView yapılan_yorum = convertView.findViewById(R.id.yapılan_yorum);
+        TextView yorum_tarihi = convertView.findViewById(R.id.yorum_tarihi);
+        TextView beğeni_sayısı_yorum = convertView.findViewById(R.id.yorum_beğenen_sayısı);
 
         yorum_sil = convertView.findViewById(R.id.yorumu_sil);
-        yanıtları_gör = convertView.findViewById(R.id.yanıtları_gör_butonu);
         yorumu_yanıtla = convertView.findViewById(R.id.yoruma_yanit_ekle_butonu);
         yorum_düzenle = convertView.findViewById(R.id.yorumu_düzenle);
         yorum_begen = convertView.findViewById(R.id.yorum_begen_butonu);
+        yanıtları_gör = convertView.findViewById(R.id.yanıtları_gör_butonu);
 
         String isim = getItem(position).split("<kay>")[0];
         String yorum = getItem(position).split("<kay>")[1];
         String tarih = getItem(position).split("<kay>")[2];
         String beğeni_sayısı = getItem(position).split("<kay>")[3];
-        textView.setText(Html.fromHtml(String.format("<b>%s</b><br>%s<br>", isim, tarih)));
-        textView2.setText(Html.fromHtml(String.format("%s<br><br><b>%s</b> beğeni", yorum, beğeni_sayısı)));
+        yorum_tarihi.setText(Html.fromHtml(String.format("<b>%s</b>", tarih)));
+        yapılan_yorum.setText(Html.fromHtml(String.format("<br><b>%s</b>:<br><br>%s<br>", isim, yorum)));
+        if (Integer.parseInt(beğeni_sayısı) > 0) {
+            beğeni_sayısı_yorum.setText(Html.fromHtml(String.format("<b>%s</b> beğeni<br>", beğeni_sayısı)));
+        }
 
         if (sharedPreferences.getBoolean("hesap_açık_mı", false)) {
             yorumu_yanıtla.setVisibility(View.VISIBLE);
@@ -85,124 +82,79 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
             yorum_düzenle.setVisibility(View.INVISIBLE);
         }
 
-        if (yanıt.equals("yorumlar")) {
-            db.collection("yanıt_yorumlar").whereEqualTo("kimeId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    int count = task.getResult().getDocuments().size();
-                    if (count > 0) {
-                        yanıtları_gör.setText("Yanıtlar ("+count+")");
-                        yanıtları_gör.setVisibility(View.VISIBLE);
-                    }
-                }
-            });
-        }
+        yorum_begen.setOnClickListener(v -> {
+            if (!(sharedPreferences.getBoolean("hesap_açık_mı", false))) {
+                Toast.makeText(getContext(), "Yorum beğenmek için oturum açmanız gerek", Toast.LENGTH_SHORT).show();
+            } else {
+                db.collection("hesaplar")
+                        .whereEqualTo("isim", sharedPreferences.getString("hesap_ismi", "YOK"))
+                        .get()
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                                QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                                ArrayList<String> beğenilenler = (ArrayList<String>) document.get("beğenilen_yorumlar");
 
-        yorum_begen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!(sharedPreferences.getBoolean("hesap_açık_mı", false))) {
-                    Toast.makeText(getContext(), "Yorum beğenmek için oturum açmanız gerek", Toast.LENGTH_SHORT).show();
-                } else {
-                    db.collection("hesaplar")
-                            .whereEqualTo("isim", sharedPreferences.getString("hesap_ismi", "YOK"))
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-                                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                                        ArrayList<String> beğenilenler = (ArrayList<String>) document.get("beğenilen_yorumlar");
-
-                                        if (beğenilenler == null) {
-                                            beğenilenler = new ArrayList<>(); // Null kontrolü
-                                        }
-
-                                        if (beğenilenler.contains(id_list.get(position))) {
-                                            Toast.makeText(getContext(), "Bu yorumu zaten beğenmişsiniz", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            // Yorum ID'sini "beğenilen_yorumlar" listesine ekle
-                                            beğenilenler.add(id_list.get(position));
-
-                                            db.collection("hesaplar").document(document.getId())
-                                                    .update("beğenilen_yorumlar", beğenilenler)
-                                                    .addOnSuccessListener(aVoid -> {
-                                                        Toast.makeText(getContext(), "Beğenildi", Toast.LENGTH_SHORT).show();
-                                                        // Ayrıca yorumun beğeni sayısını güncelle
-                                                        updateLikeCount(id_list.get(position), db);
-                                                    })
-                                                    .addOnFailureListener(e -> {
-                                                        Log.w("TAG", "Error updating document", e);
-                                                    });
-                                        }
-                                    } else {
-                                        Log.e("Firestore", "Sorgu başarısız: ", task.getException());
-                                    }
+                                if (beğenilenler == null) {
+                                    beğenilenler = new ArrayList<>();
                                 }
-                            });
-                }
-            }
-        });
 
-        yorum_sil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        db.collection(yanıt).document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(getContext(), "Yorum silindi", Toast.LENGTH_SHORT).show();
+                                if (beğenilenler.contains(id_list.get(position))) {
+                                    Toast.makeText(getContext(), "Bu yorumu zaten beğenmişsiniz", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    beğenilenler.add(id_list.get(position));
+                                    db.collection("hesaplar").document(document.getId())
+                                            .update("beğenilen_yorumlar", beğenilenler)
+                                            .addOnSuccessListener(aVoid -> {
+                                                Toast.makeText(getContext(), "Beğenildi", Toast.LENGTH_SHORT).show();
+                                                updateLikeCount(id_list.get(position), db);
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Log.w("TAG", "Error updating document", e);
+                                            });
+                                }
+                            } else {
+                                Log.e("Firestore", "Sorgu başarısız: ", task.getException());
                             }
                         });
-                    }
-                });
             }
         });
 
-        yorum_düzenle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        Intent intent = new Intent(getContext(), Yorum_ekle_düzenle_yanıtla.class);
-                        intent.putExtra("ekle_düzenle", "düzenle");
-                        intent.putExtra("mevcut_yorum", document.get("yorum").toString());
-                        intent.putExtra("yorum_id", id_list.get(position));
-                        getContext().startActivity(intent);
-                    }
+        yorum_sil.setOnClickListener(view -> {
+            db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(task -> {
+                QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                db.collection(yanıt).document(document.getId()).delete().addOnCompleteListener(task1 -> {
+                    Toast.makeText(getContext(), "Yorum silindi", Toast.LENGTH_SHORT).show();
                 });
-            }
+            });
         });
 
-        yorumu_yanıtla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        Intent intent = new Intent(getContext(), Yorum_ekle_düzenle_yanıtla.class);
-                        intent.putExtra("ekle_düzenle", "yanıtla");
-                        intent.putExtra("kimeId", id_list.get(position));
-                        intent.putExtra("yorum_yapılan_isim", (String) document.get("isim"));
-                        getContext().startActivity(intent);
-                    }
-                });
-            }
-        });
-
-        yanıtları_gör.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Yanıtlar.class);
-                intent.putExtra("anaYorumId", id_list.get(position));
+        yorum_düzenle.setOnClickListener(view -> {
+            db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(task -> {
+                QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                Intent intent = new Intent(getContext(), Yorum_ekle_düzenle_yanıtla.class);
+                intent.putExtra("ekle_düzenle", "düzenle");
+                intent.putExtra("mevcut_yorum", document.get("yorum").toString());
+                intent.putExtra("yorum_id", id_list.get(position));
                 getContext().startActivity(intent);
-            }
+            });
+        });
+
+        yorumu_yanıtla.setOnClickListener(view -> {
+            db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(task -> {
+                QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
+                Intent intent = new Intent(getContext(), Yorum_ekle_düzenle_yanıtla.class);
+                intent.putExtra("ekle_düzenle", "yanıtla");
+                intent.putExtra("kimeId", id_list.get(position));
+                intent.putExtra("yorum_yapılan_isim", (String) document.get("isim"));
+                getContext().startActivity(intent);
+            });
+        });
+
+        yanıtları_gör.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), Yanıtlar.class);
+            intent.putExtra("anaYorumId", id_list.get(position));
+
+            getContext().startActivity(intent);
         });
 
         return convertView;
