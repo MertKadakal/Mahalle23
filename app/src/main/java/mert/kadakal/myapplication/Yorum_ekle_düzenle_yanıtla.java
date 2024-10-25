@@ -59,6 +59,7 @@ public class Yorum_ekle_düzenle_yanıtla extends AppCompatActivity {
                     eklenen_yorum.put("beğeni_sayısı", 0);
                     eklenen_yorum.put("yanıt_sayısı", 0);
                     eklenen_yorum.put("yorumId", "0");
+
                     db.collection("yorumlar").add(eklenen_yorum).addOnSuccessListener(documentReference -> {
                                 // Belge başarıyla oluşturuldu, ID'yi alın
                                 String yorumId = documentReference.getId();
@@ -120,6 +121,7 @@ public class Yorum_ekle_düzenle_yanıtla extends AppCompatActivity {
                         eklenen_yorum.put("yorum", yorum.getText().toString());
                         eklenen_yorum.put("tarih", tarihStr);
                         eklenen_yorum.put("beğeni_sayısı", 0);
+                        eklenen_yorum.put("yanıt_sayısı", 0);
                         eklenen_yorum.put("kimeId", getIntent().getStringExtra("kimeId"));
                         eklenen_yorum.put("yorumId", "0");
                         db.collection("yanıt_yorumlar").add(eklenen_yorum).addOnSuccessListener(documentReference -> {

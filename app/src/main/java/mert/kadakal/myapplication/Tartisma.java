@@ -98,7 +98,7 @@ public class Tartisma extends Fragment {
                                         + document.get("beğeni_sayısı"));
                                 yorum_id_listesi.add(document.getString("yorumId"));
                             }
-                            HtmlArrayAdapterYorumlar adapter = new HtmlArrayAdapterYorumlar(getContext(), R.layout.yorumlar, yorumlar, yorum_id_listesi);
+                            HtmlArrayAdapterYorumlar adapter = new HtmlArrayAdapterYorumlar(getContext(), R.layout.yorumlar, yorumlar, yorum_id_listesi, "yorumlar");
                             yorumlar_listesi.setAdapter(adapter);
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());

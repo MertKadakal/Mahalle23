@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,10 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -34,10 +37,12 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
     Button yorum_sil;
     Button yorum_düzenle;
     ArrayList<String> id_list;
+    String yanıt;
 
-    public HtmlArrayAdapterYorumlar(Context context, int resource, List<String> items, ArrayList<String> id_list) {
+    public HtmlArrayAdapterYorumlar(Context context, int resource, List<String> items, ArrayList<String> id_list, String yanıt) {
         super(context, resource, items);
         this.id_list = id_list;
+        this.yanıt = yanıt;
     }
 
     @Override
@@ -75,16 +80,23 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
             yorum_düzenle.setVisibility(View.VISIBLE);
         }
 
-        db.collection("yorumlar").whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                if (Integer.parseInt(document.get("yanıt_sayısı").toString()) > 0) {
-                    yanıtları_gör.setText("Yanıtlar ("+document.get("yanıt_sayısı").toString()+")");
-                    yanıtları_gör.setVisibility(View.VISIBLE);
+        if (yanıt.equals("yanıt_yorumlar")) {
+            yorumu_yanıtla.setVisibility(View.INVISIBLE);
+            yorum_düzenle.setVisibility(View.INVISIBLE);
+        }
+
+        if (yanıt.equals("yorumlar")) {
+            db.collection("yanıt_yorumlar").whereEqualTo("kimeId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    int count = task.getResult().getDocuments().size();
+                    if (count > 0) {
+                        yanıtları_gör.setText("Yanıtlar ("+count+")");
+                        yanıtları_gör.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         yorum_begen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,11 +147,11 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         yorum_sil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("yorumlar").whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
-                        db.collection("yorumlar").document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        db.collection(yanıt).document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(getContext(), "Yorum silindi", Toast.LENGTH_SHORT).show();
@@ -153,7 +165,7 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         yorum_düzenle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("yorumlar").whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
@@ -170,7 +182,7 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         yorumu_yanıtla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("yorumlar").whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection(yanıt).whereEqualTo("yorumId", id_list.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         QueryDocumentSnapshot document = (QueryDocumentSnapshot) task.getResult().getDocuments().get(0);
@@ -184,11 +196,20 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
             }
         });
 
+        yanıtları_gör.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Yanıtlar.class);
+                intent.putExtra("anaYorumId", id_list.get(position));
+                getContext().startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 
     private void updateLikeCount(String yorumId, FirebaseFirestore db) {
-        db.collection("yorumlar").document(yorumId)
+        db.collection(yanıt).document(yorumId)
                 .update("beğeni_sayısı", FieldValue.increment(1))
                 .addOnSuccessListener(aVoid -> Log.d("TAG", "Beğeni sayısı güncellendi."))
                 .addOnFailureListener(e -> Log.w("TAG", "Error updating document", e));
