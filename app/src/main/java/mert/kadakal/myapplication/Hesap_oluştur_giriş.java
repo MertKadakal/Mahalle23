@@ -4,8 +4,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ public class Hesap_oluştur_giriş extends AppCompatActivity {
     EditText isim;
     EditText şifre;
     Button tamam;
+    TextView kısıtlamalar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,17 +43,25 @@ public class Hesap_oluştur_giriş extends AppCompatActivity {
         şifre = findViewById(R.id.şifre);
         tamam = findViewById(R.id.hesap_ekle_giriş);
         tamam.setText(getIntent().getStringExtra("oluştur_giriş"));
+        kısıtlamalar = findViewById(R.id.kısıtlamalar);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        if (getIntent().getStringExtra("oluştur_giriş").equals("Giriş yap")) {
+            kısıtlamalar.setVisibility(View.INVISIBLE);
+        }
 
         tamam.setOnClickListener(view -> {
             if (isim.getText().toString().length() == 0 || şifre.getText().toString().length() == 0) {
                 Toast.makeText(this, "Lütfen gerekli alanları doldurunuz", Toast.LENGTH_SHORT).show();
             } else if (getIntent().getStringExtra("oluştur_giriş").equals("Oluştur")) {
-                db.collection("hesaplar")
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (şifre.getText().toString().length() < 6) {
+                    Toast.makeText(this, "Şifre en az 6 karakter içermeli", Toast.LENGTH_SHORT).show();
+                } else if (şifre.getText().toString().toLowerCase().equals(şifre.getText().toString())) {
+                    Toast.makeText(this, "Şifre en az 1 büyük harf içermeli", Toast.LENGTH_SHORT).show();
+                } else {
+                    db.collection("hesaplar")
+                            .get().addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
                                     boolean isim_kontrol = false;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
@@ -86,38 +97,35 @@ public class Hesap_oluştur_giriş extends AppCompatActivity {
                                         şifre.getText().clear();
                                     }
                                 }
-                            }
-                        });
+                            });
+                }
             } else if (getIntent().getStringExtra("oluştur_giriş").equals("Giriş yap")) {
                 db.collection("hesaplar")
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    boolean şifre_kontrol = false;
-                                    boolean isim_kontrol = false;
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.getString("isim").equals(isim.getText().toString())) {
-                                            isim_kontrol = true;
-                                            if (document.getString("şifre").equals(şifre.getText().toString())) {
-                                                şifre_kontrol = true;
-                                            }
+                        .get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                boolean şifre_kontrol = false;
+                                boolean isim_kontrol = false;
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if (document.getString("isim").equals(isim.getText().toString())) {
+                                        isim_kontrol = true;
+                                        if (document.getString("şifre").equals(şifre.getText().toString())) {
+                                            şifre_kontrol = true;
                                         }
                                     }
-                                    if (!şifre_kontrol || !isim_kontrol) {
-                                        Toast.makeText(Hesap_oluştur_giriş.this, "İsim veya şifre yanlış girildi", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(Hesap_oluştur_giriş.this, Html.fromHtml(isim.getText().toString() + " hesabına giriş yapıldı"), Toast.LENGTH_SHORT).show();
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putBoolean("hesap_açık_mı", true);
-                                        editor.putString("hesap_ismi", isim.getText().toString());
-                                        editor.putString("hesap_şifresi", şifre.getText().toString());
-                                        editor.apply();
-                                        onBackPressed();
+                                }
+                                if (!şifre_kontrol || !isim_kontrol) {
+                                    Toast.makeText(Hesap_oluştur_giriş.this, "İsim veya şifre yanlış girildi", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(Hesap_oluştur_giriş.this, Html.fromHtml(isim.getText().toString() + " hesabına giriş yapıldı"), Toast.LENGTH_SHORT).show();
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean("hesap_açık_mı", true);
+                                    editor.putString("hesap_ismi", isim.getText().toString());
+                                    editor.putString("hesap_şifresi", şifre.getText().toString());
+                                    editor.apply();
+                                    onBackPressed();
 
-                                        isim.getText().clear();
-                                        şifre.getText().clear();
-                                    }
+                                    isim.getText().clear();
+                                    şifre.getText().clear();
                                 }
                             }
                         });

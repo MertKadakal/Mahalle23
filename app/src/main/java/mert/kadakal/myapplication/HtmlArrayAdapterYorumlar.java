@@ -36,8 +36,6 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         super(context, resource, items);
         this.id_list = id_list;
         this.yanıt = yanıt;
-
-
     }
 
     @Override
@@ -48,7 +46,6 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
 
         TextView yapılan_yorum = convertView.findViewById(R.id.yapılan_yorum);
-        TextView yorum_tarihi = convertView.findViewById(R.id.yorum_tarihi);
         TextView beğeni_sayısı_yorum = convertView.findViewById(R.id.yorum_beğenen_sayısı);
 
         yorum_sil = convertView.findViewById(R.id.yorumu_sil);
@@ -61,8 +58,7 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         String yorum = getItem(position).split("<kay>")[1];
         String tarih = getItem(position).split("<kay>")[2];
         String beğeni_sayısı = getItem(position).split("<kay>")[3];
-        yorum_tarihi.setText(Html.fromHtml(String.format("<b>%s</b>", tarih)));
-        yapılan_yorum.setText(Html.fromHtml(String.format("<br><b>%s</b>:<br><br>%s<br>", isim, yorum)));
+        yapılan_yorum.setText(Html.fromHtml(String.format("<br><i>%s</i><br><br><b>%s</b>:<br><br>%s<br>", tarih, isim, yorum)));
         if (Integer.parseInt(beğeni_sayısı) > 0) {
             beğeni_sayısı_yorum.setText(Html.fromHtml(String.format("<b>%s</b> beğeni<br>", beğeni_sayısı)));
         }
@@ -80,6 +76,7 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         if (yanıt.equals("yanıt_yorumlar")) {
             yorumu_yanıtla.setVisibility(View.INVISIBLE);
             yorum_düzenle.setVisibility(View.INVISIBLE);
+            yanıtları_gör.setVisibility(View.INVISIBLE);
         }
 
         yorum_begen.setOnClickListener(v -> {

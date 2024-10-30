@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mahalle_arkaplan"
+    android:background="@drawable/background_template"
     tools:context=".Tartisma">
 
     <ListView
@@ -12,48 +12,71 @@
         android:layout_width="375dp"
         android:layout_height="610dp"
         android:translationY="20dp"
+        android:divider="#FFFFFF"
+        android:dividerHeight="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/yorum_ekleme_butonu"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="yorum ekle"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_item_dark"
         app:layout_constraintTop_toBottomOf="@+id/yorumlar_listesi" />
 
     <Button
         android:id="@+id/hesaptan_cikis_butonu"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="çıkış yap"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_item_dark"
         app:layout_constraintTop_toBottomOf="@+id/yorumlar_listesi" />
 
     <Button
         android:id="@+id/hesap_oluştur"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="hesap oluştur"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="20dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_item_dark"
         app:layout_constraintTop_toBottomOf="@+id/yorumlar_listesi" />
 
     <Button
         android:id="@+id/giriş_yap"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="20dp"
+        android:text="giriş yap"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/bg_item_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yorumlar_listesi" />
+
+    <TextView
+        android:id="@+id/yukleniyor_tartisma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="giriş yap"
-        app:layout_constraintStart_toEndOf="@+id/hesap_oluştur"
-        app:layout_constraintTop_toBottomOf="@+id/yorumlar_listesi" />
+        android:text="Yükleniyor..."
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

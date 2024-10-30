@@ -4,108 +4,340 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_template"
     tools:context=".AnasayfaFragment">
 
-    <Button
-        android:id="@+id/hava_durumu"
-        android:layout_width="160dp"
-        android:layout_height="275dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="35dp"
-        android:backgroundTint="#114018"
-        android:fontFamily="@font/akaya_kanadaka"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Hava Durumu"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/hava_durumu"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_item"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/weather_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Hava Durumu"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Mahellenin bir haftalik hava durumu"
+                    android:textColor="#7C7272"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/toplu_ulaşım"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_item"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/transportation_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Toplu Ulaşım"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Mahelleden geçen otobüs ve metro hatları"
+                    android:textColor="#7C7272"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/satılık_daireler"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_item"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/home_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Satılık Daireler"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Mahelledeki güncel satılık daireler"
+                    android:textColor="#7C7272"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/kiralık_daireler"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_item"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/kiralik_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Kiralık Daireler"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Mahelledeki güncel kiralık daireler"
+                    android:textColor="#7C7272"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/muhtarlık"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_item"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/muhtar_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Muhtarlık"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Mahelle muhtarlığıyla iletişim"
+                    android:textColor="#7C7272"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/taksi"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_item"
+            android:clickable="true"
+            android:contextClickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/taksi_icon" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Taksi"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:paddingStart="8dp"
+                    android:text="Atabulvarı Taksi'den taksi çağır"
+                    android:textColor="#7C7272"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="94dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/mahalle23_amblem"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/toplu_ulasim"
-        android:layout_width="160dp"
-        android:layout_height="275dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="28dp"
-        android:backgroundTint="#114018"
-        android:elevation="4dp"
-        android:fontFamily="@font/akaya_kanadaka"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Toplu Ulaşım"
+    <TextView
+        android:id="@+id/amblem_yazısı"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="casual"
+        android:text="Mahalle23"
         android:textColor="#FFFFFF"
-        android:textSize="25sp"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/muhtarlik"
-        android:layout_width="336dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="28dp"
-        android:backgroundTint="#228331"
-        android:elevation="4dp"
-        android:fontFamily="@font/akaya_kanadaka"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Muhtarlık"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toplu_ulasim" />
-
-    <Button
-        android:id="@+id/taksi"
-        android:layout_width="336dp"
-        android:layout_height="111dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="28dp"
-        android:backgroundTint="#228331"
-        android:elevation="4dp"
-        android:fontFamily="@font/akaya_kanadaka"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Taksi"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/muhtarlik" />
-
-    <Button
-        android:id="@+id/satılık"
-        android:layout_width="148dp"
-        android:layout_height="107dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="28dp"
-        android:backgroundTint="#48D35D"
-        android:elevation="4dp"
-        android:fontFamily="@font/akaya_kanadaka"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Satılık"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taksi" />
-
-    <Button
-        android:id="@+id/kiralık"
-        android:layout_width="148dp"
-        android:layout_height="107dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#48D35D"
-        android:elevation="4dp"
-        android:fontFamily="@font/akaya_kanadaka"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Kiralık"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taksi" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.015" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

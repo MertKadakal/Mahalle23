@@ -1,11 +1,13 @@
 package mert.kadakal.myapplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,12 +16,12 @@ import androidx.fragment.app.Fragment;
 
 public class AnasayfaFragment extends Fragment implements View.OnClickListener {
 
-    private Button muhtarlik;
-    private Button hava_durumu;
-    private Button toplu_ulasim;
-    private Button taksi;
-    private Button satilik;
-    private Button kiralik;
+    private LinearLayout muhtarlik;
+    private LinearLayout hava_durumu;
+    private LinearLayout toplu_ulasim;
+    private LinearLayout taksi;
+    private LinearLayout satilik;
+    private LinearLayout kiralik;
 
     @Nullable
     @Override
@@ -32,37 +34,45 @@ public class AnasayfaFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        muhtarlik = view.findViewById(R.id.muhtarlik);
         hava_durumu = view.findViewById(R.id.hava_durumu);
-        toplu_ulasim = view.findViewById(R.id.toplu_ulasim);
+        toplu_ulasim = view.findViewById(R.id.toplu_ulaşım);
         taksi = view.findViewById(R.id.taksi);
-        satilik = view.findViewById(R.id.satılık);
-        kiralik = view.findViewById(R.id.kiralık);
+        satilik = view.findViewById(R.id.satılık_daireler);
+        kiralik = view.findViewById(R.id.kiralık_daireler);
+        muhtarlik = view.findViewById(R.id.muhtarlık);
 
-        muhtarlik.setOnClickListener(this);
         hava_durumu.setOnClickListener(this);
         toplu_ulasim.setOnClickListener(this);
-        taksi.setOnClickListener(this);
         satilik.setOnClickListener(this);
         kiralik.setOnClickListener(this);
+        taksi.setOnClickListener(view12 -> {
+            // Telefon numarasını tanımlayın
+            String phoneNumber = "tel:+905300374727";
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse(phoneNumber));
+            startActivity(intent);
+        });
+        muhtarlik.setOnClickListener(view1 -> {
+            // Telefon numarasını tanımlayın
+            String phoneNumber = "tel:+905417728890";
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse(phoneNumber));
+            startActivity(intent);
+        });
     }
 
     @Override
     public void onClick(View view) {
         // Tıklanan butona göre ilgili aktiviteyi başlatan yapı
-        if (view.getId() == R.id.muhtarlik) {
-            startListener(Muhtarlik.class);
-        } else if (view.getId() == R.id.hava_durumu) {
+        if (view.getId() == R.id.hava_durumu) {
             startListener(HavaDurumu.class);
-        } else if (view.getId() == R.id.toplu_ulasim) {
+        } else if (view.getId() == R.id.toplu_ulaşım) {
             startListener(Toplu_ulasim.class);
-        } else if (view.getId() == R.id.taksi) {
-            startListener(Taksi.class);
-        } else if (view.getId() == R.id.satılık) {
+        } else if (view.getId() == R.id.satılık_daireler) {
             Intent intent = new Intent(getContext(), SatilikDaireler.class);
             intent.putExtra("ilan_türü", "satilik");
             startActivity(intent);
-        } else if (view.getId() == R.id.kiralık) {
+        } else if (view.getId() == R.id.kiralık_daireler) {
             Intent intent = new Intent(getContext(), SatilikDaireler.class);
             intent.putExtra("ilan_türü", "kiralik");
             startActivity(intent);

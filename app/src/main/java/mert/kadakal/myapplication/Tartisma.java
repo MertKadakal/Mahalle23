@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class Tartisma extends Fragment {
     Button çıkış_yap;
     Button hesap_oluştur;
     Button giriş_yap;
+    TextView yukleniyor;
     ArrayList<String> yorumlar = new ArrayList<>();
     private ListView yorumlar_listesi;
     private ArrayList<String> yorum_id_listesi = new ArrayList<>();
@@ -46,6 +48,8 @@ public class Tartisma extends Fragment {
         çıkış_yap = view.findViewById(R.id.hesaptan_cikis_butonu);
         hesap_oluştur = view.findViewById(R.id.hesap_oluştur);
         giriş_yap = view.findViewById(R.id.giriş_yap);
+        yukleniyor = view.findViewById(R.id.yukleniyor_tartisma);
+
         yorum_ekle.setVisibility(View.INVISIBLE);
         çıkış_yap.setVisibility(View.INVISIBLE);
         hesap_oluştur.setVisibility(View.VISIBLE);
@@ -98,8 +102,13 @@ public class Tartisma extends Fragment {
                                         + document.get("beğeni_sayısı"));
                                 yorum_id_listesi.add(document.getString("yorumId"));
                             }
-                            HtmlArrayAdapterYorumlar adapter = new HtmlArrayAdapterYorumlar(getContext(), R.layout.yorumlar, yorumlar, yorum_id_listesi, "yorumlar");
-                            yorumlar_listesi.setAdapter(adapter);
+                            if (yorumlar.size() == 0) {
+                                yukleniyor.setText("Henüz yorum yok");
+                            } else {
+                                yukleniyor.setVisibility(View.INVISIBLE);
+                                HtmlArrayAdapterYorumlar adapter = new HtmlArrayAdapterYorumlar(getContext(), R.layout.yorumlar, yorumlar, yorum_id_listesi, "yorumlar");
+                                yorumlar_listesi.setAdapter(adapter);
+                            }
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }

@@ -49,4 +49,22 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/şifre" />
+
+    <TextView
+        android:id="@+id/kısıtlamalar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="
+→Kullanıcı ismi için kısıtlama yoktur\n\n
+Şifre:\n
+→En az 6 karakter içermeli\n
+→En az 1 büyük harf içermeli
+"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.573"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hesap_ekle_giriş" />
 </androidx.constraintlayout.widget.ConstraintLayout>
