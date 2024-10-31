@@ -1,17 +1,21 @@
 package mert.kadakal.myapplication;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.fonts.Font;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.HashMap;
 
@@ -28,14 +32,14 @@ public class NereyeGitsem_SecilenKategori extends AppCompatActivity {
         buttonContainer = findViewById(R.id.button_container);
 
         switch (getIntent().getStringExtra("SEÇİLEN_KATEGORİ")) {
-            case "Market alışverişi":
+            case "market":
                 marketler();
                 break;
-            case "Halısaha":
+            case "halısaha":
                 halısaha();
                 break;
-            case "Fırın":
-                firinlar();  // Örnek ekleme, diğer kategoriler için de böyle yapabilirsin
+            case "fırın":
+                firinlar();
                 break;
         }
 
@@ -75,14 +79,28 @@ public class NereyeGitsem_SecilenKategori extends AppCompatActivity {
 
         for (int i = 0; i < marketIsimleri.length; i++) {
             Button btn = new Button(this);
-            btn.setText("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"+marketIsimleri[i]+"\n\n\n");
+            btn.setTypeface(Typeface.create("sans-serif-condensed-medium", Typeface.NORMAL));
+            btn.setTextSize(20);
+            btn.setText("\n\n\n\n\n\n\n\n\n\n\n\n\n" + marketIsimleri[i] + "\n\n\n");
+            btn.setBackground(getResources().getDrawable(R.drawable.bg_item));
+            btn.setWidth(650);
             gorsel_ekle(marketGorseller[i], btn);
+
             final String url = market_sube_urls.get(marketIsimleri[i]);
             btn.setOnClickListener(view -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             });
+
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(10, 0, 10, 0); // Üst ve alt tarafa 16dp boşluk ekler
+            btn.setLayoutParams(params);
+
             buttonContainer.addView(btn);
+
         }
 
         // HorizontalScrollView'u ilk buton konumuna kaydır

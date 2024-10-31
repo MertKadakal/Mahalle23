@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="390dp"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
+    android:background="@drawable/background_template"
     android:padding="2dp">
 
     <HorizontalScrollView
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
-        android:layout_marginTop="80dp">
+        >
 
         <LinearLayout
             android:id="@+id/button_container"

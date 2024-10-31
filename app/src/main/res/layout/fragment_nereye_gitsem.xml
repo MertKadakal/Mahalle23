@@ -3,13 +3,166 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_template"
+    android:orientation="vertical"
     tools:context=".NereyeGitsemFragment">
 
-    <ListView
-        android:id="@+id/yapilabilecekler_listesi"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="676dp"
-        android:translationY="20dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/akşam_yemeği"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:gravity="center"
+                android:text="Akşam Yemeği"
+                android:textSize="20dp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/kahvaltı"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="Kahvaltı"
+                android:textSize="20dp"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:layout_marginLeft="5dp">
+            </TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/kafe_restaurant"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:text="Kafe-Restaurant"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:layout_marginRight="5dp">
+            </TextView>
+            <TextView
+                android:id="@+id/halısaha"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="Halısaha"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:layout_marginLeft="5dp">
+            </TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/market"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="Market"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:layout_marginRight="5dp">
+            </TextView>
+            <TextView
+                android:id="@+id/fırın"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="Fırın"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:layout_marginLeft="5dp">
+            </TextView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/kişisel_bakım"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:text="Kişisel Bakım"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:layout_marginRight="5dp">
+            </TextView>
+            <TextView
+                android:id="@+id/yürüyüş_oyun_parkı"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:fontFamily="sans-serif-condensed-medium"
+
+                android:text="Yürüyüş-Oyun\nParkı"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/bg_item"
+                android:layout_marginLeft="5dp">
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nereye_gitsem_item_tepe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nereye gitmek istersiniz?"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-condensed-medium"
+
+        />
+
 
 </FrameLayout>

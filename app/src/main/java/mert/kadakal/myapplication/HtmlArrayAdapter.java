@@ -43,11 +43,19 @@ public class HtmlArrayAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         if (liste_ismi.equals("haberler")) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.haberler, parent, false);
-            TextView haber_sayfasi_text = convertView.findViewById(R.id.haber_sayfasi);
+            TextView haber_sayfasi = convertView.findViewById(R.id.haber_sayfasi);
+            TextView haber_açıklaması = convertView.findViewById(R.id.haber_açıklaması);
+            TextView haber_başlığı = convertView.findViewById(R.id.haber_başlığı);
             String[] parts = getItem(position).split("<br>");
             if (parts.length >= 3) {  // Split işlemini güvenli hale getir
-                String htmlText = "<b>" + parts[1] + "</b><br><br>" + parts[2] + "<br><br><i>" + parts[0] + "</i>";
-                haber_sayfasi_text.setText(Html.fromHtml(htmlText));
+                String htmlTextBaşlık = "<i>" + parts[0] + "</i>";
+                haber_sayfasi.setText(Html.fromHtml(htmlTextBaşlık));
+
+                String htmlTexthaber_açıklaması =parts[2];
+                haber_açıklaması.setText(Html.fromHtml(htmlTexthaber_açıklaması));
+
+                String htmlTexthaber_sayfasi =  "<b>" + parts[1] + "</b>";
+                haber_başlığı.setText(Html.fromHtml(htmlTexthaber_sayfasi));
             }
         } else if (liste_ismi.equals("yapılabilecekler")) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.yapilabilecekler, parent, false);

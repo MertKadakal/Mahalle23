@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_template"
     tools:context=".HaberlerFragment">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Yükleniyor..."
-        android:textColor="#000000"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <ListView
@@ -20,7 +20,9 @@
         android:layout_width="370dp"
         android:layout_height="676dp"
         android:layout_gravity="center_horizontal"
-        android:translationY="20dp" />
+        android:translationY="20dp"
+        android:dividerHeight="2dp"
+        android:divider="@color/white"/>
 
 
 </FrameLayout>

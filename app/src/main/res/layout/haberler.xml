@@ -9,12 +9,44 @@
     android:padding="2dp">
 
     <TextView
+        android:id="@+id/haber_başlığı"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="adsadas"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:fontFamily="sans-serif-condensed-medium"
+
+        android:paddingRight="20dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:translationX="10dp" />
+    <TextView
+        android:id="@+id/haber_açıklaması"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="adsadas"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="20dp"
+        android:textAlignment="textStart"
+        android:fontFamily="sans-serif-condensed-medium"
+
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:translationX="10dp" />
+    <TextView
         android:id="@+id/haber_sayfasi"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="adsadas"
+        android:paddingTop="10dp"
+        android:fontFamily="sans-serif-condensed-medium"
+
+        android:paddingBottom="10dp"
         android:textAlignment="textStart"
-        android:textColor="#000000"
-        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textSize="10sp"
         android:translationX="10dp" />
 </LinearLayout>
