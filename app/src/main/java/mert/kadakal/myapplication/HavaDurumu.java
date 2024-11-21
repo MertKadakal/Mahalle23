@@ -87,12 +87,12 @@ public class HavaDurumu extends AppCompatActivity {
             }
 
             Elements trElements = doc.select("div.weather-forecast > table > tbody > tr");
-            sonrakigun1.setText(Html.fromHtml("<b>"+trElements.get(2).text().replace("Saatlik ", "").substring(0, trElements.get(2).text().replace("Saatlik ", "").indexOf(" ")) + "</b><br>" + trElements.get(2).text().replace("Saatlik ", "").substring(trElements.get(2).text().replace("Saatlik ", "").indexOf(" ") + 1)));
-            sonrakigun2.setText(replaceThirdSpaceWithNewline(trElements.get(3).text().replace("Saatlik ", "")));
-            sonrakigun3.setText(replaceThirdSpaceWithNewline(trElements.get(4).text()));
-            sonrakigun4.setText(replaceThirdSpaceWithNewline(trElements.get(5).text()));
-            sonrakigun5.setText(replaceThirdSpaceWithNewline(trElements.get(6).text()));
-            sonrakigun6.setText(replaceThirdSpaceWithNewline(trElements.get(7).text()));
+            sonrakigun1.setText(Html.fromHtml("<b>"+trElements.get(2).text().replace("Saatlik ", "").substring(0, trElements.get(2).text().replace("Saatlik ", "").indexOf(" ")) + "</b><br>" + trElements.get(2).text().replace("Saatlik ", "").substring(trElements.get(2).text().replace("Saatlik ", "").indexOf(" ") + 1).replaceFirst("°", "° / ")));
+            sonrakigun2.setText(replaceThirdSpaceWithNewline(trElements.get(3).text().replace("Saatlik ", "").replaceFirst("°", "° / ")));
+            sonrakigun3.setText(replaceThirdSpaceWithNewline(trElements.get(4).text().replaceFirst("°", "° / ")));
+            sonrakigun4.setText(replaceThirdSpaceWithNewline(trElements.get(5).text().replaceFirst("°", "° / ")));
+            sonrakigun5.setText(replaceThirdSpaceWithNewline(trElements.get(6).text().replaceFirst("°", "° / ")));
+            sonrakigun6.setText(replaceThirdSpaceWithNewline(trElements.get(7).text().replaceFirst("°", "° / ")));
 
 
             String suanki_derece = doc.selectFirst("span.temperature.type-1").text();
