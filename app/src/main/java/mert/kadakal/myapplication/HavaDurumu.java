@@ -4,7 +4,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,13 +89,28 @@ public class HavaDurumu extends AppCompatActivity {
                 }
             }
 
-            Elements trElements = doc.select("div.weather-forecast > table > tbody > tr");
-            sonrakigun1.setText(Html.fromHtml("<b>"+trElements.get(2).text().replace("Saatlik ", "").substring(0, trElements.get(2).text().replace("Saatlik ", "").indexOf(" ")) + "</b><br>" + trElements.get(2).text().replace("Saatlik ", "").substring(trElements.get(2).text().replace("Saatlik ", "").indexOf(" ") + 1).replaceFirst("°", "° / ")));
-            sonrakigun2.setText(replaceThirdSpaceWithNewline(trElements.get(3).text().replace("Saatlik ", "").replaceFirst("°", "° / ")));
-            sonrakigun3.setText(replaceThirdSpaceWithNewline(trElements.get(4).text().replaceFirst("°", "° / ")));
-            sonrakigun4.setText(replaceThirdSpaceWithNewline(trElements.get(5).text().replaceFirst("°", "° / ")));
-            sonrakigun5.setText(replaceThirdSpaceWithNewline(trElements.get(6).text().replaceFirst("°", "° / ")));
-            sonrakigun6.setText(replaceThirdSpaceWithNewline(trElements.get(7).text().replaceFirst("°", "° / ")));
+            Elements trElements = doc.select("div.weather-forecast > div:not([class]) > table > tbody > tr");
+            TextView[] gunler = {sonrakigun1, sonrakigun2, sonrakigun3, sonrakigun4, sonrakigun5, sonrakigun6};
+            ArrayList<Element> tdler;
+
+            for (int i = 0; i < gunler.length; i++) {
+                tdler = new ArrayList<>(trElements.get(i + 1).select("td"));
+                String gunMetni = String.format("<b>%s</b><br>%s - <i>%s / %s</i>",
+                        tdler.get(0).text().split(" Saatlik")[0],
+                        tdler.get(1).text().split(" Saatlik")[0],
+                        tdler.get(3).text(),
+                        tdler.get(4).text());
+
+                gunler[i].setText(Html.fromHtml(gunMetni));
+            }
+
+
+            //sonrakigun1.setText(trElements.get(2).select("td").get(1).text());
+            //sonrakigun2.setText(trElements.get(3).select("td").get(1).text());
+            //sonrakigun3.setText(trElements.get(4).select("td").get(1).text());
+            //sonrakigun4.setText(trElements.get(5).select("td").get(1).text());
+            //sonrakigun5.setText(trElements.get(6).select("td").get(1).text());
+            //sonrakigun6.setText(trElements.get(7).select("td").get(1).text());
 
 
             String suanki_derece = doc.selectFirst("span.temperature.type-1").text();
