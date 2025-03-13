@@ -1,6 +1,7 @@
 package mert.kadakal.myapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,39 +37,18 @@ public class SatilikDaireler extends AppCompatActivity {
             try {
                 // Fetch the document in the background
                 doc = NetworkUtils.connectToUrl("https://www.emlakjet.com/"+getIntent().getStringExtra("ilan_türü")+"-daire/bursa-nilufer-23-nisan-mahallesi/");
+                //doc = NetworkUtils.connectToUrl("https://www.emlakjet.com/satilik-daire/bursa-nilufer-23-nisan-mahallesi/");
 
                 // Update the UI on the main thread
                 runOnUiThread(() -> {
                     List<HashMap<String, String>> main_items = new ArrayList<>();
 
-
-                    //daireleri listeye ekle
-                    for (int i = 0; i < doc.select("._3qUI9q").size(); i += 2) {
+                    for (int i = 0; i < doc.select(".styles_title__CN_n3").size(); i++) {
                         HashMap<String, String> items = new HashMap<>();
 
-                        Element ilan = doc.select("._3qUI9q").get(i);
-                        String ilan_basligi = ilan.select("h3").text();
-
-                        items.put("başlık", ilan_basligi);
-                        for (int j = 0; j < ilan.select("div._2UELHn > span").size(); j++) {
-                            Element span = ilan.select("div._2UELHn > span").get(j);
-                            switch (span.selectFirst("i.material-icons").text()) {
-                                case "texture":
-                                    items.put("ebat", span.text().split("texture")[1]);
-                                    break;
-                                case "layers":
-                                    items.put("kat", span.text().split("layers")[1]);
-                                    break;
-                                case "event":
-                                    items.put("tarih", span.text().split("event")[1]);
-                                    break;
-                                case "weekend":
-                                    items.put("oda", span.text().split("weekend")[1]);
-                                    break;
-                            }
-                        }
-                        items.put("fiyat", ilan.selectFirst("p._2C5UCT").text());
-                        items.put("link", ilan.select("a").attr("href"));
+                        items.put("başlık", doc.select(".styles_title__CN_n3").get(i).text());
+                        items.put("özellikler", doc.select(".styles_quickinfoWrapper__F5BBD").get(i).text());
+                        items.put("fiyat", doc.select(".styles_price__8Z_OS").get(i).text());
 
                         main_items.add(items);
                     }

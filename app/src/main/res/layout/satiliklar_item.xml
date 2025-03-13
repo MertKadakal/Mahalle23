@@ -17,70 +17,30 @@
             android:id="@+id/başlık"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="başlık"
-            android:textStyle="bold"
             android:textAlignment="textStart"
             android:textColor="#FFFFFF"
             android:textSize="25sp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:textStyle="bold"
 
             />
 
         <TextView
-            android:id="@+id/ebat"
+            android:id="@+id/özellikler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="ebat"
-            android:textAlignment="textStart"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:textAlignment="center"
             android:textColor="#FFFFFF"
-
-            />
-        <TextView
-            android:id="@+id/kat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="kat"
-            android:textAlignment="textStart"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textColor="#FFFFFF"
-
-            />
-
-        <TextView
-            android:id="@+id/tarih"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="tarih"
-            android:textAlignment="textStart"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textColor="#FFFFFF"
-
-            />
-        <TextView
-            android:id="@+id/oda"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="oda"
-            android:textAlignment="textStart"
-            android:textSize="15sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:textColor="#FFFFFF"
+            android:textSize="20sp"
 
             />
 

@@ -34,39 +34,23 @@ public class HtmlArrayAdapterSatilik extends ArrayAdapter<HashMap<String, String
 
         // Görünüm elemanlarını tanımla
         TextView tbaslik = convertView.findViewById(R.id.başlık);
-        TextView tebat = convertView.findViewById(R.id.ebat);
-        TextView tkat = convertView.findViewById(R.id.kat);
-        TextView ttarih = convertView.findViewById(R.id.tarih);
-        TextView toda = convertView.findViewById(R.id.oda);
         TextView tfiyat = convertView.findViewById(R.id.fiyat);
+        TextView tözellikler = convertView.findViewById(R.id.özellikler);
 
         // Mevcut pozisyondaki öğeyi al
         HashMap<String, String> item = items.get(position);
-        Log.d("tag", item.get("başlık"));
 
         // HashMap'teki değerleri al ve TextView'lara ata
         String baslik = item.get("başlık");
-        String ebat = item.get("ebat");
-        String kat = item.get("kat");
-        String tarih = item.get("tarih");
-        String oda = item.get("oda");
+        String özellikler = item.get("özellikler");
         String fiyat = item.get("fiyat");
 
         // HTML formatında olan metinleri TextView'lara yerleştir
         if (!baslik.isEmpty()) {
             tbaslik.setText(Html.fromHtml(baslik));
         }
-        if (!ebat.isEmpty()) {
-            tebat.setText(Html.fromHtml("<b>Ebat: </b>" + ebat));
-        }
-        if (!kat.isEmpty()) {
-            tkat.setText(Html.fromHtml("<b>Kat: </b>" + kat));
-        }
-        if (!tarih.isEmpty()) {
-            ttarih.setText(Html.fromHtml("<b>Tarih: </b>" + tarih));
-        }
-        if (!oda.isEmpty()) {
-            toda.setText(Html.fromHtml("<b>Oda: </b>" + oda));
+        if (!özellikler.isEmpty()) {
+            tözellikler.setText(Html.fromHtml(özellikler));
         }
         if (!fiyat.isEmpty()) {
             tfiyat.setText(Html.fromHtml(fiyat));
