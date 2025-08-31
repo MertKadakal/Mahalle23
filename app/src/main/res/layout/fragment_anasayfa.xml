@@ -10,17 +10,20 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
         <LinearLayout
             android:id="@+id/hava_durumu"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_item"
             android:clickable="true"
@@ -33,8 +36,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/weather_icon" />
@@ -51,7 +54,7 @@
                     android:paddingStart="8dp"
                     android:text="Hava Durumu"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -60,7 +63,7 @@
                     android:paddingStart="8dp"
                     android:text="Mahellenin bir haftalik hava durumu"
                     android:textColor="#7C7272"
-                    android:textSize="16sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -68,7 +71,7 @@
 
         <LinearLayout
             android:id="@+id/toplu_ulaşım"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_item"
@@ -82,8 +85,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/transportation_icon" />
@@ -100,7 +103,7 @@
                     android:paddingStart="8dp"
                     android:text="Toplu Ulaşım"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,7 +112,7 @@
                     android:paddingStart="8dp"
                     android:text="Mahelleden geçen otobüs ve metro hatları"
                     android:textColor="#7C7272"
-                    android:textSize="16sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -117,7 +120,7 @@
 
         <LinearLayout
             android:id="@+id/satılık_daireler"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_item"
@@ -131,8 +134,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/home_icon" />
@@ -149,7 +152,7 @@
                     android:paddingStart="8dp"
                     android:text="Satılık Daireler"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -158,7 +161,7 @@
                     android:paddingStart="8dp"
                     android:text="Mahelledeki güncel satılık daireler"
                     android:textColor="#7C7272"
-                    android:textSize="16sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -166,7 +169,7 @@
 
         <LinearLayout
             android:id="@+id/kiralık_daireler"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_item"
@@ -180,8 +183,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/kiralik_icon" />
@@ -198,7 +201,7 @@
                     android:paddingStart="8dp"
                     android:text="Kiralık Daireler"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,7 +210,7 @@
                     android:paddingStart="8dp"
                     android:text="Mahelledeki güncel kiralık daireler"
                     android:textColor="#7C7272"
-                    android:textSize="16sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -215,7 +218,7 @@
 
         <LinearLayout
             android:id="@+id/muhtarlık"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_item"
@@ -229,8 +232,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/muhtar_icon" />
@@ -247,7 +250,7 @@
                     android:paddingStart="8dp"
                     android:text="Muhtarlık"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -256,7 +259,7 @@
                     android:paddingStart="8dp"
                     android:text="Mahelle muhtarlığıyla iletişim"
                     android:textColor="#7C7272"
-                    android:textSize="16sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -264,7 +267,7 @@
 
         <LinearLayout
             android:id="@+id/taksi"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_item"
@@ -278,8 +281,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/taksi_icon" />
@@ -296,7 +299,7 @@
                     android:paddingStart="8dp"
                     android:text="Taksi"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -305,38 +308,17 @@
                     android:paddingStart="8dp"
                     android:text="Atabulvarı Taksi'den taksi çağır"
                     android:textColor="#7C7272"
-                    android:textSize="16sp" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
 
+
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="94dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/mahalle23_amblem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/amblem_yazısı"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
-        android:fontFamily="casual"
-        android:text="Mahalle23"
-        android:textColor="#FFFFFF"
-        android:textSize="40sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 

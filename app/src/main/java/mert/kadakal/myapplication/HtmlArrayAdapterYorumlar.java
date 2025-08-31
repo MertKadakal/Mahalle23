@@ -45,24 +45,29 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
         }
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("myPrefs", MODE_PRIVATE);
 
-        TextView yapılan_yorum = convertView.findViewById(R.id.yapılan_yorum);
+        TextView yapılan_yorum_isim = convertView.findViewById(R.id.yapılan_yorum_isim);
+        TextView yapılan_yorum_yorum = convertView.findViewById(R.id.yapılan_yorum_yorum);
+        TextView yapılan_yorum_tarih = convertView.findViewById(R.id.yapılan_yorum_tarih);
         TextView beğeni_sayısı_yorum = convertView.findViewById(R.id.yorum_beğenen_sayısı);
 
-        yorum_sil = convertView.findViewById(R.id.yorumu_sil);
-        yorumu_yanıtla = convertView.findViewById(R.id.yoruma_yanit_ekle_butonu);
-        yorum_düzenle = convertView.findViewById(R.id.yorumu_düzenle);
-        yorum_begen = convertView.findViewById(R.id.yorum_begen_butonu);
-        yanıtları_gör = convertView.findViewById(R.id.yanıtları_gör_butonu);
+        //yorum_sil = convertView.findViewById(R.id.yorumu_sil);
+        //yorumu_yanıtla = convertView.findViewById(R.id.yoruma_yanit_ekle_butonu);
+        //yorum_düzenle = convertView.findViewById(R.id.yorumu_düzenle);
+        //yorum_begen = convertView.findViewById(R.id.yorum_begen_butonu);
+        //yanıtları_gör = convertView.findViewById(R.id.yanıtları_gör_butonu);
 
         String isim = getItem(position).split("<kay>")[0];
         String yorum = getItem(position).split("<kay>")[1];
         String tarih = getItem(position).split("<kay>")[2];
         String beğeni_sayısı = getItem(position).split("<kay>")[3];
-        yapılan_yorum.setText(Html.fromHtml(String.format("<br><i>%s</i><br><br><b>%s</b>:<br><br>%s<br>", tarih, isim, yorum)));
-        if (Integer.parseInt(beğeni_sayısı) > 0) {
-            beğeni_sayısı_yorum.setText(Html.fromHtml(String.format("<b>%s</b> beğeni<br>", beğeni_sayısı)));
-        }
 
+        yapılan_yorum_isim.setText("~"+isim);
+        yapılan_yorum_yorum.setText(yorum);
+        yapılan_yorum_tarih.setText(tarih);
+        if (Integer.parseInt(beğeni_sayısı) > 0) {
+            beğeni_sayısı_yorum.setText(Html.fromHtml(String.format("<b>%s</b> ♥", beğeni_sayısı)));
+        }
+/*
         if (sharedPreferences.getBoolean("hesap_açık_mı", false)) {
             yorumu_yanıtla.setVisibility(View.VISIBLE);
             yorum_begen.setVisibility(View.VISIBLE);
@@ -152,7 +157,7 @@ public class HtmlArrayAdapterYorumlar extends ArrayAdapter<String> {
             intent.putExtra("anaYorumId", id_list.get(position));
 
             getContext().startActivity(intent);
-        });
+        });*/
 
         return convertView;
     }

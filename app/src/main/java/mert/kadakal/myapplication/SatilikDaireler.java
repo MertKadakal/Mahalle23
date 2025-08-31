@@ -43,12 +43,12 @@ public class SatilikDaireler extends AppCompatActivity {
                 runOnUiThread(() -> {
                     List<HashMap<String, String>> main_items = new ArrayList<>();
 
-                    for (int i = 0; i < doc.select(".styles_title__CN_n3").size(); i++) {
+                    for (int i = 0; i < doc.select(".styles_title__aKEGQ").size(); i++) {
                         HashMap<String, String> items = new HashMap<>();
 
-                        items.put("başlık", doc.select(".styles_title__CN_n3").get(i).text());
-                        items.put("özellikler", doc.select(".styles_quickinfoWrapper__F5BBD").get(i).text());
-                        items.put("fiyat", doc.select(".styles_price__8Z_OS").get(i).text());
+                        items.put("başlık", doc.select(".styles_title__aKEGQ").get(i).text());
+                        items.put("özellikler", doc.select(".styles_quickinfoWrapper__Vsnk5").get(i).text());
+                        items.put("fiyat", doc.select(".styles_price__F3pMQ").get(i).text());
 
                         main_items.add(items);
                     }
@@ -56,6 +56,8 @@ public class SatilikDaireler extends AppCompatActivity {
                     yukleniyor.setVisibility(View.INVISIBLE);
                     HtmlArrayAdapterSatilik adapter = new HtmlArrayAdapterSatilik(SatilikDaireler.this, R.layout.satiliklar_item, main_items);
                     satiliklar_liste.setAdapter(adapter);
+
+                    Log.d("TAG", String.valueOf(main_items.size()));
 
                 });
             } catch (Exception e) {
